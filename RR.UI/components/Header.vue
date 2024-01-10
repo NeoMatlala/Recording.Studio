@@ -26,7 +26,7 @@
                     </li>
                 </ul>
             </div>
-            <button type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">Book rehearsal space</button>
+            <NuxtLink to="/login" type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">Book rehearsal space</NuxtLink>
         </div>
     </nav>
 </template>

@@ -2,7 +2,7 @@
   <div >
     <Header />
     <NuxtLayout>
-      <NuxtPage />
+      <NuxtPage class="min-h-[60vh]"/>
     </NuxtLayout>
     <Footer />
   </div>
