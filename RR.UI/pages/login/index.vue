@@ -12,7 +12,7 @@
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900">Password</label>
                     <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
                 </div>
-                <button type="submit" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center ">Login</button>
+                <NuxtLink to="/manage-bookings" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center block">Login</NuxtLink>
             </form>
             <p class="text-center text-slate-500 font-light mt-4">Don't have an account? 
                 <NuxtLink to="/create-account" class="hover:underline">Create an account</NuxtLink>
