@@ -73,6 +73,7 @@ app.UseCors("AllowLocalhost");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
