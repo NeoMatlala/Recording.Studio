@@ -23,6 +23,9 @@
 
 <script setup>
 definePageMeta({
-  layout: 'bookings'
+  //layout: 'bookings',
+  middleware: [
+    'auth'
+  ]
 })
 </script>
