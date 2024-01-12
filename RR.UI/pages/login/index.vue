@@ -38,6 +38,7 @@
 import axios from 'axios'
 
 export default{
+    layout: 'default',
     data() {
         return {
             user : {
