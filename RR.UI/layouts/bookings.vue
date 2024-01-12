@@ -12,7 +12,7 @@
                     </svg>
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                    <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black hover:bg-slate-200 focus:ring-2 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center gap-5" type="button">
+                    <button id="dropdownDefaultButton" @click="dropdownToggle" class="text-black hover:bg-slate-200 focus:ring-2 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center gap-5" type="button">
                         email@user.com 
                         <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
@@ -20,20 +20,20 @@
                     </button>
 
                     <!-- Dropdown menu -->
-                    <div id="dropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Sign out</a>
-                        </li>
+                    <div v-if="showDropdown" id="dropdown" class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                        <ul class="py-2 text-sm text-gray-700">
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Dashboard</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Settings</a>
+                            </li>
+                            <li>
+                                <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Earnings</a>
+                            </li>
+                            <li>
+                                <a class="cursor-pointer block px-4 py-2 hover:bg-gray-100" @click="logout">Sign out</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -43,3 +43,22 @@
         <Footer />
     </div>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            showDropdown: false
+        }
+    },
+    methods : {
+        dropdownToggle() {
+            this.showDropdown = !this.showDropdown;
+        },
+        logout() {
+            localStorage.removeItem('token')
+            this.$router.replace('/login')
+        }
+    }
+}
+</script>

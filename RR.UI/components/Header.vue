@@ -10,7 +10,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
             </button>
-            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div v-if="$route.path !== '/manage-bookings'" class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
                     <li>
                         <a class="cursor-pointer block py-2 px-3 text-gray-900 md:p-0 md:hover:underline" aria-current="page">Services</a>
@@ -26,9 +26,56 @@
                     </li>
                 </ul>
             </div>
-            <NuxtLink to="/login" type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
+            <NuxtLink v-if="$route.path !== '/manage-bookings'" to="/login" type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
                 Book rehearsal space
             </NuxtLink>
+
+            <div v-if="$route.path == '/manage-bookings'" class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <button id="dropdownDefaultButton" @click="dropdownToggle" class="text-black hover:bg-slate-200 focus:ring-2 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center gap-5" type="button">
+                    email@user.com 
+                    <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                </button>
+
+                <!-- Dropdown menu -->
+                <div v-if="showDropdown" id="dropdown" class="z-10 absolute bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <ul class="py-2 text-sm text-gray-700">
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Dashboard</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Settings</a>
+                        </li>
+                        <li>
+                            <a class="block px-4 py-2 hover:bg-gray-100 text-slate-300">Earnings</a>
+                        </li>
+                        <li>
+                            <a class="cursor-pointer block px-4 py-2 hover:bg-gray-100" @click="logout">Sign out</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
         </div>
     </nav>
 </template>
+
+<script>
+export default {
+    data() {
+        return {
+            showDropdown: false
+        }
+    },
+    methods : {
+        dropdownToggle() {
+            this.showDropdown = !this.showDropdown;
+        },
+        logout() {
+            localStorage.removeItem('token')
+            this.$router.replace('/login')
+        }
+    }
+}
+</script>
