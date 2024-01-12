@@ -1,5 +1,5 @@
 <template>
-    <nav class="bg-white mb-6 max-w-7xl mx-auto border-gray-200">
+    <nav class="bg-white mb-6 max-w-7xl mx-auto border-b border-gray-200">
         <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4">
             <NuxtLink to="/" class="text-black font-medium text-5xl">
                 R&R<span class="text-slate-300 text-4xl font-medium">Studios</span>
@@ -10,7 +10,7 @@
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                 </svg>
             </button>
-            <div v-if="$route.path !== '/manage-bookings'" class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div v-if="$route.path !== '/manage-bookings' && $route.path !== '/book-rehearsal'" class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
                     <li>
                         <a class="cursor-pointer block py-2 px-3 text-gray-900 md:p-0 md:hover:underline" aria-current="page">Services</a>
@@ -26,11 +26,11 @@
                     </li>
                 </ul>
             </div>
-            <NuxtLink v-if="$route.path !== '/manage-bookings'" to="/login" type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
+            <NuxtLink v-if="$route.path !== '/manage-bookings' && $route.path !== '/book-rehearsal'" to="/login" type="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
                 Book rehearsal space
             </NuxtLink>
 
-            <div v-if="$route.path == '/manage-bookings'" class="hidden w-full md:block md:w-auto" id="navbar-default">
+            <div v-if="$route.path == '/manage-bookings' || $route.path === '/book-rehearsal'" class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <button id="dropdownDefaultButton" @click="dropdownToggle" class="text-black hover:bg-slate-200 focus:ring-2 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center justify-center gap-5" type="button">
                     email@user.com 
                     <svg class="w-2.5 h-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
