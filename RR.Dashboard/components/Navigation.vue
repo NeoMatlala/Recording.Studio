@@ -5,19 +5,19 @@
         </div>
 
         <ul class="mt-10 px-5 space-y-5">
-            <li class="hover:bg-blue-600 hover:text-white p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path === '/dashboard' }">
-                <NuxtLink>Home</NuxtLink>
+            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path === '/dashboard' }">
+                <NuxtLink to="/dashboard">Home</NuxtLink>
             </li>
-            <li class="hover:bg-blue-600 hover:text-white p-2 px-4 rounded-lg" :class="{ 'bg-white text-blue-700': $route.path.startsWith('/bookings') }">
+            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/bookings') }">
                 <NuxtLink>Bookings</NuxtLink>
             </li>
-            <li class="hover:bg-blue-600 hover:text-white p-2 px-4 rounded-lg" :class="{ 'bg-white text-blue-700': $route.path.startsWith('/employees') }">
+            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/employees') }">
                 <NuxtLink>Employees</NuxtLink>
             </li>
-            <li class="hover:bg-blue-600 hover:text-white p-2 px-4 rounded-lg" :class="{ 'bg-white text-blue-700': $route.path.startsWith('/slots') }">
-                <NuxtLink>Slots</NuxtLink>
+            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/slots') }">
+                <NuxtLink to="/slots">Slots</NuxtLink>
             </li>
-            <li class="hover:bg-blue-600 hover:text-white p-2 px-4 rounded-lg" :class="{ 'bg-white text-blue-700': $route.path.startsWith('/payments') }">
+            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/payments') }">
                 <NuxtLink>Payments</NuxtLink>
             </li>
         </ul>
