@@ -1,15 +1,10 @@
 <template>
-    <div class="w-full flex justify-between items-center h-screen">
-        <div class="w-1/2 bg-blue-500 h-full">
-            <img src="../assets/img/studio.jpg" class="w-full object-cover h-full">
-        </div>
-
-        <div class="w-1/2">
-
+    <div>
+        <div class="w-full">
             <div class="">
                 <h1 class="text-center text-4xl mb-16 font-medium">Login into dashboard</h1>
 
-                <form class="max-w-sm mx-auto" @submit.prevent="loginUser">
+                <form class="max-w-sm mx-auto" @submit.prevent="checkAdmin">
                     <div class="mb-5">
                         <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
                         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@flowbite.com" v-model="user.email" required>
@@ -30,7 +25,17 @@
                             </span>
                         </div>
                     </div>
-                    <button type="submit" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center">Login</Button>
+                    <button type="submit" class="text-white bg-blue-500 hover:bg-blue-600 focus:ring-2 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center">Login</Button>
+
+                    <div v-if="showAccountError" class="flex mt-10 items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                        <svg class="flex-shrink-0 inline w-6 h-6 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                        </svg>
+                        <span class="sr-only">Info</span>
+                        <div>
+                            <span class="font-medium">Not an admin account.</span> Please use admin credentials & try again.
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -41,7 +46,12 @@
 import axios from 'axios'
 
 export default{
-    layout: 'default',
+    //layout: 'default',
+    setup(){
+        definePageMeta({
+            layout: 'account'
+        })
+    },
     data() {
         return {
             user : {
@@ -49,22 +59,31 @@ export default{
                 password: ''
             },
             showPassword: false,
-            hidePasswordIcon : false
+            hidePasswordIcon : false,
+            showAccountError: false
         }
     },
     methods: {
-        async loginUser() {
+        checkAdmin(){
+            if(this.user.email != 'admin@rr.com') {
+                this.showAccountError = true
+            } else {
+                console.log(' admin')
+                this.loginUser(this.user)
+            }
+        },
+        async loginUser(user) {
             try {
-                const response = await axios.post("https://localhost:7179/api/Auth/Login", this.user)
+                const response = await axios.post("https://localhost:7179/api/Auth/Login", user)
 
                 console.log(response.data)
 
                 const authToken = response.data.message
                 localStorage.setItem('token', authToken)
 
-                // if(response.data.isSuccess) {
-                //     this.$router.replace('/manage-bookings')
-                // }
+                if(response.data.isSuccess) {
+                    this.$router.replace('/dashboard')
+                }
             } catch (error) {
                 console.log("Error creating employee: ", error.message);
 
