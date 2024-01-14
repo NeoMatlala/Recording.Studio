@@ -25,7 +25,7 @@ namespace RR.API.Controllers
             return Ok(slots);
         }
 
-        // TODO: get single slot
+        // READ single slot
         [HttpGet("GetSlot/{id}")]
         public IActionResult GetSlot(int id) 
         {

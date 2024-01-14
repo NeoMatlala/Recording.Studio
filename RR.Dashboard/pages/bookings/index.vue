@@ -1,41 +1,37 @@
 <template>
     <div class="w-full">
         <div class="mt-5 max-w-[95%] mx-auto">
-            <div class="flex justify-between items-center mb-14">
-                <h1 class="text-4xl text-slate-800 font-medium">Rehearsal Slots</h1>
-                <NuxtLink to="/slots/add" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Add Slots</NuxtLink>
-            </div>
+            <h1 class="text-4xl text-slate-800 font-medium mb-14">Bookings</h1>
 
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Slot Name
+                                Artist/Band
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Time
+                                Date
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Slot Rate
+                                Cost To Client
                             </th>
                             <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="slot in slots" :key="slot.slotId">
+                        <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="booking in bookings" :key="booking.bookingId">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{slot.name}}
+                                {{booking.artist}}
                             </th>
                             <td class="px-6 py-4">
-                                {{slot.time}}
+                                {{booking.date}}
                             </td>
                             <td class="px-6 py-4">
-                                {{slot.price}}
+                                R {{booking.price}}
                             </td>
                             <td class="px-6 py-4 space-x-5">
-                                <NuxtLink :to="`/slots/update/${slot.slotId}`" class="font-medium text-blue-600 hover:underline">Edit</NuxtLink>
-                                <NuxtLink :to="`/slots/delete/${slot.slotId}`" class="font-medium text-red-600 hover:underline">Delete</NuxtLink>
+                                <NuxtLink :to="`bookings/view/${booking.bookingId}`" class="font-medium text-blue-600 hover:underline">View Booking</NuxtLink>
                             </td>
                         </tr>
                     </tbody>
@@ -51,7 +47,7 @@ import axios from 'axios';
 export default{
     data() {
         return {
-            slots: []
+            bookings: []
         }
         
     },
@@ -62,17 +58,17 @@ export default{
         }
     },
     created(){
-        this.getSlots()
+        this.getBookings()
     },
     methods: {
-        async getSlots() {
+        async getBookings() {
             try{
                 //var response = await axios.get(`${this.baseApi}/api/Employee`);
-                var response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
                 //console.log(response.data)
-                this.slots = response.data
+                this.bookings = response.data
             } catch(error) {
-                console.log("Error getting slots: ", error.message)
+                console.log("Error getting bookings: ", error.message)
             }
         }
     }

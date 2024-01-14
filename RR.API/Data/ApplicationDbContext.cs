@@ -13,5 +13,7 @@ namespace RR.API.Data
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Slot> Slots { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<BookingSlot> BookingSlots { get; set; }
     }
 }

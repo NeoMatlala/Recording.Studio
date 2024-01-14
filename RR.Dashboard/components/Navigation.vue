@@ -9,7 +9,7 @@
                 <NuxtLink to="/dashboard">Home</NuxtLink>
             </li>
             <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/bookings') }">
-                <NuxtLink>Bookings</NuxtLink>
+                <NuxtLink to="bookings">Bookings</NuxtLink>
             </li>
             <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/employees') }">
                 <NuxtLink>Employees</NuxtLink>
