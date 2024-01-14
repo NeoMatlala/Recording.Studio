@@ -1,8 +1,8 @@
 <template>
     <div class="mt-5 max-w-[95%] mx-auto">
-        <h1 class="font-medium text-3xl">Create Rehearsal Slot</h1>
+        <h1 class="font-medium text-3xl">Update Rehearsal Slot</h1>
 
-        <form class="mt-16" @submit.prevent="createSlot">
+        <form class="mt-16" @submit.prevent="updateSlot">
             <div class="grid gap-10 mb-6 md:grid-cols-3">
                 <div>
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Slot name</label>
@@ -29,6 +29,8 @@
 
 <script>
 import axios from 'axios';
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 export default{
     data() {
@@ -40,17 +42,36 @@ export default{
             }
         }
     },
-    methods: {
-        async createSlot() {
+    setup() {
+        const id = ref(useRoute().params.id)
+
+        return {
+            id
+        }
+    },
+    created() {
+        this.fetchSlot();
+    },
+    methods : {
+        async fetchSlot() {
             try {
-                const response = await axios.post(`https://localhost:7179/api/Slot/CreateSlot`, this.slot)
-                console.log(response.data)
+                const response = await axios.get(`https://localhost:7179/api/Slot/GetSlot/${this.id}`)
+                //console.log(response.data)
+                this.slot = response.data
+
+            } catch (error) {
+                console.log("Could not fetch this slot: ", error.message)
+            }
+        },
+        async updateSlot() {
+            try {
+                const response = await axios.post(`https://localhost:7179/api/Slot/UpdateSlot/${this.id}`, this.slot)
+                //console.log(response.data)
                 this.$router.replace('/slots');
             } catch (error) {
-                console.log("Could not add this slot: ", error.message)
+                console.log("Could not update this slot: ", error.message)
             }
         }
     }
 }
-
 </script>

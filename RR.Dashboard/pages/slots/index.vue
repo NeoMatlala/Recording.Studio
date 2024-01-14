@@ -11,51 +11,70 @@
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
                             <th scope="col" class="px-6 py-3">
-                                Name
+                                Slot Name
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Surname
+                                Time
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                ID Number
+                                Slot Rate
                             </th>
-                            <th scope="col" class="px-6 py-3">
-                                Job Title
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Department Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Actions
-                            </th>
+                            <th scope="col" class="px-6 py-3"></th>
                         </tr>
                     </thead>
-                    <!-- <tbody>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="employee in employees" :key="employee.employeeId">
+                    <tbody>
+                        <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="slot in slots" :key="slot.slotId">
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                {{employee.name}}
+                                {{slot.name}}
                             </th>
                             <td class="px-6 py-4">
-                                {{employee.surname}}
+                                {{slot.time}}
                             </td>
                             <td class="px-6 py-4">
-                                {{employee.idNumber}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{employee.jobTitle}}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{employee.department.departmentName}}
+                                {{slot.price}}
                             </td>
                             <td class="px-6 py-4 space-x-5">
-                                <NuxtLink :to="`/update-employee/${employee.employeeId}`" class="font-medium text-blue-600 hover:underline">Edit</NuxtLink>
-                                <NuxtLink :to="`/delete-employee/${employee.employeeId}`" class="font-medium text-red-600 hover:underline">Delete</NuxtLink>
+                                <NuxtLink :to="`/slots/update/${slot.slotId}`" class="font-medium text-blue-600 hover:underline">Edit</NuxtLink>
+                                <NuxtLink :to="`/slots/delete/${slot.slotId}`" class="font-medium text-red-600 hover:underline">Delete</NuxtLink>
                             </td>
                         </tr>
-                    </tbody> -->
+                    </tbody>
                 </table>
             </div>
         </div>
     </div>
 </template>
 
+<script>
+import axios from 'axios';
+
+export default{
+    data() {
+        return {
+            slots: []
+        }
+        
+    },
+    setup(){
+        const config = useRuntimeConfig()
+        return {
+            baseApi: config.public.apiBase
+        }
+    },
+    created(){
+        this.getSlots()
+    },
+    methods: {
+        async getSlots() {
+            try{
+                //var response = await axios.get(`${this.baseApi}/api/Employee`);
+                var response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                //console.log(response.data)
+                this.slots = response.data
+            } catch(error) {
+                console.log("Error getting slots: ", error.message)
+            }
+        }
+    }
+}
+</script>
