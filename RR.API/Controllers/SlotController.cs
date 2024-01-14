@@ -20,7 +20,7 @@ namespace RR.API.Controllers
         [HttpGet("GetSlots")]
         public IActionResult GetSlots()
         {
-            var slots = _db.Slots.ToList();
+            var slots = _db.Slots.OrderBy(slot => slot.Name).ToList();
 
             return Ok(slots);
         }

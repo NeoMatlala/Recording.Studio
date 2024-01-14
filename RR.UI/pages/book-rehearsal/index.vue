@@ -24,7 +24,12 @@
                 <h6 class="font-light text-4xl mb-10">Tuesday</h6>
 
                 <div class="grid grid-cols-3  gap-4">
-                    <div class="bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-md cursor-pointer hover:text-black p-6">
+                    <div v-for="slot in slots" class="bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-md cursor-pointer hover:text-black p-6">
+                        <p class="text-center">
+                            {{slot.time}}
+                        </p>
+                    </div>
+                    <!-- <div class="bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-md cursor-pointer hover:text-black p-6">
                         <p class="text-center">
                             09:00 - 11:00
                         </p>
@@ -48,7 +53,7 @@
                         <p class="text-center">
                             09:00 - 11:00
                         </p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="flex items-start mt-10">
@@ -81,10 +86,37 @@
     </div>
 </template>
 
-<script setup>
-definePageMeta({
-  middleware: [
-    'auth'
-  ]
-})
+<script>
+import axios from 'axios';
+// TODO: bring back middleware
+// definePageMeta({
+//   middleware: [
+//     'auth'
+//   ]
+// })
+
+export default {
+    data() {
+        return{
+            slots: []
+        }
+        
+    },
+    created() {
+        this.fetchSlots()
+    },
+    methods: {
+        async fetchSlots() {
+            try {
+                const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                console.log(response.data)
+                this.slots = response.data
+
+            } catch (error) {
+                console.log("Could not fetch slots: ", error.message)
+            }
+        }
+    }
+
+}
 </script>
