@@ -74,6 +74,7 @@ export default {
         },
         logout() {
             localStorage.removeItem('token')
+            localStorage.removeItem('varchar')
             this.$router.replace('/login')
         }
     }

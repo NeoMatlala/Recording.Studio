@@ -46,7 +46,15 @@ export default{
                 password: ''
             },
             showPassword: false,
-            hidePasswordIcon : false
+            hidePasswordIcon : false,
+            userId : null
+        }
+    },
+    setup(){
+        const selectedId = useStateUserId()
+
+        return {
+            selectedId
         }
     },
     methods: {
@@ -54,14 +62,20 @@ export default{
             try {
                 const response = await axios.post("https://localhost:7179/api/Auth/Login", this.user)
 
-                console.log(response.data)
+                //console.log(response.data)
+
+                const userId = response.data.userId
+                const selectedId = useStateUserId()
+                selectedId.value = userId 
 
                 const authToken = response.data.message
                 localStorage.setItem('token', authToken)
+                localStorage.setItem('varchar', userId)
 
                 if(response.data.isSuccess) {
                     this.$router.replace('/manage-bookings')
                 }
+                
             } catch (error) {
                 console.log("Error creating employee: ", error.message);
 

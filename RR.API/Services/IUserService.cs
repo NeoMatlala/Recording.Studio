@@ -117,7 +117,8 @@ namespace RR.API.Services
             {
                 Message = tokenAsString,
                 IsSuccess = true,
-                ExpireDate = token.ValidTo
+                ExpireDate = token.ValidTo,
+                UserId = user.Id
             };
         }
     }

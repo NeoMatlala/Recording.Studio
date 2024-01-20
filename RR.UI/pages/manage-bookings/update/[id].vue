@@ -1,6 +1,6 @@
 <template>
     <div class="max-w-7xl mx-auto">
-        <h1 class="text-5xl mt-16 mb-10 font-medium">Select available slot</h1>
+        <h1 class="text-5xl mt-16 mb-10 font-medium">Update booking</h1>
 
         <div class="flex justify-between gap-5 items-center">
             <div class="w-1/3">
@@ -14,15 +14,12 @@
             <div class="w-1/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Rehearsal date</label>
                 <!-- <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="select date" required> -->
-                <VueDatePicker v-model="date" :enable-time-picker="false"></VueDatePicker>
+                <VueDatePicker v-model="booking.date" :enable-time-picker="false"></VueDatePicker>
             </div>
         </div>
 
         <div class="flex justify-between items-start gap-10 mt-16">
-            
-            <!-- slots  -->
-            <div class="w-2/3" v-if="date">
-                <h1 class="font-medium text-4xl mb-2" @click="showDate">Show date</h1>
+            <div class="w-2/3">
                 <h1 class="font-medium text-4xl mb-2">02 Jan</h1>
                 <h6 class="font-light text-4xl mb-10">Tuesday</h6>
 
@@ -50,13 +47,13 @@
             </div>
 
             <!-- price  -->
-            <div v-if="showPrice" class="p-5 border border-slate-200 rounded-md w-1/3" >
+            <div class="p-5 border border-slate-200 rounded-md w-1/3" >
                 <h1 class="font-medium text-3xl">R {{total}}</h1>
                 <p class="mt-5 mb-16 font-light text-slate-500">
                     Our slots are two(2) hour slots
                 </p>
 
-                <button type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="bookRehearsal">Book</button>
+                <button type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="updateRehearsal">Book</button>
 
                 <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
 
@@ -65,49 +62,42 @@
                     <p>{{total}}</p>
                 </div> -->
             </div>
+
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios';
-// TODO: bring back middleware
-// definePageMeta({
-//   middleware: [
-//     'auth'
-//   ]
-// })
-
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
 
-export default {
-    async asyncData({ app }) {
-        const userID = app.$root.$myVariable;
-
-        return { userID };
-    },
-    components: { VueDatePicker },
+export default{
     data() {
-        return{
+        return {
+            booking: {},
             slots: [],
-            booking: {
+            total: 0,
+            selectedSlotIds: [],
+            responseBookingSlots: [],
+            updatedBooking: {
                 userId: '',
                 artist: '',
                 date: '',
                 phoneNumber: '',
                 price: '',
                 slotIds: []
-            },
-            total: 0,
-            showPrice: false,
-            selectedSlotIds: []
+            }
         }
-        
+    },
+    components: { 
+        VueDatePicker 
     },
     setup() {
-        const date = ref();
+        const id = ref(useRoute().params.id)
+        const date = ref(new Date());
 
         const format = (date) => {
             const day = date.getDate();
@@ -117,34 +107,45 @@ export default {
             return `${year}-${month}-${day}`;
         }
 
-        const useUserId = useStateUserId()
-
         return {
+            id,
             date,
-            format,
-            useUserId
+            format
         }
     },
-    created() {
-        this.fetchSlots()
-    },
-    mounted(){
-        this.fetchSlots().then(() => {
-            const preSelectedSlotIds = [];
-            this.selectedSlotIds = preSelectedSlotIds;
+    // created() {
+    //     this.getBooking()
+    //     this.fetchSlots()
+    // },
+    mounted() {
+        Promise.all([this.fetchSlots(), this.getBooking()]).then(() => {
+            //const preSelectedSlotIds = [5, 6];
+            //this.selectedSlotIds = preSelectedSlotIds
+            this.selectedSlotIds = this.responseBookingSlots;
 
             // Set slot.selected based on pre-selected slotIds
             this.slots.forEach((slot) => {
-            slot.selected = this.selectedSlotIds.includes(slot.slotId);
+                slot.selected = this.selectedSlotIds.includes(slot.slotId);
             });
 
             this.calculateTotalAndBooking();
-            // console.log(this.slots)
-            // console.log(this.selectedSlotIds)
-        })
-        
+        });
     },
     methods: {
+        async getBooking() {
+            try{
+                var response = await axios.get(`https://localhost:7179/api/Bookings/GetBooking/${this.id}`)
+                //console.log(response.data)
+                this.booking = response.data
+
+                this.booking.bookingSlots.forEach(slot =>{
+                    this.responseBookingSlots.push(slot.slotId)
+                })
+                
+            } catch(error) {
+                console.log("Error getting booking: ", error.message)
+            }
+        },
         async fetchSlots() {
             try {
                 const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
@@ -154,22 +155,61 @@ export default {
             } catch (error) {
                 console.log("Could not fetch slots: ", error.message)
             }
+            
         },
-        async bookRehearsal(){
+        toggleSlot(slot) {
+            const price = parseInt(slot.price, 10);
+
+            if (slot.selected) {
+                this.total -= price;
+                this.booking.slotIds = this.booking.slotIds.filter(
+                (slotId) => slotId !== slot.slotId
+                );
+                this.selectedSlotIds = this.selectedSlotIds.filter(
+                (selectedSlotId) => selectedSlotId !== slot.slotId
+                );
+            } else {
+                this.showPrice = true;
+                this.total += price;
+                this.booking.slotIds.push(slot.slotId);
+                this.selectedSlotIds.push(slot.slotId);
+            }
+
+            slot.selected = !slot.selected;
+            //console.log(this.selectedSlotIds)
+        },
+        calculateTotalAndBooking() {
+            this.total = this.slots.reduce((acc, slot) => {
+            if (this.selectedSlotIds.includes(slot.slotId)) {
+                return acc + parseInt(slot.price, 10);
+                }
+                return acc;
+            }, 0);
+
+            this.booking.slotIds = [...this.selectedSlotIds];
+        },
+        async updateRehearsal(){
             const correctDateFormat = this.format(this.date);
 
-            console.log(this.total)
+            //console.log(this.total)
 
             this.booking.date = correctDateFormat
-            this.booking.userId = localStorage.getItem('varchar')
-            this.booking.price = this.total
+            //this.booking.userId = localStorage.getItem('varchar')
+            // this.booking.price = this.total
 
-            console.log(this.booking)
+            this.updatedBooking.artist = this.booking.artist
+            this.updatedBooking.date = this.booking.date
+            this.updatedBooking.phoneNumber = this.booking.phoneNumber
+            this.updatedBooking.price = this.total
+            this.updatedBooking.userId = this.booking.userId
+            this.updatedBooking.slotIds = this.selectedSlotIds
+
+            //console.log(this.updatedBooking)
 
             try{
-                const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
+                const response = await axios.post(`https://localhost:7179/api/Bookings/UpdateBooking/${this.booking.bookingId}`, this.updatedBooking)
                 console.log(response.data)
-                this.$router.replace('/manage-bookings')
+                this.$router.replace(`/manage-bookings/view/${this.booking.bookingId}`)
             } catch (error) {
                 console.log("Error creating employee: ", error.message);
 
@@ -193,39 +233,6 @@ export default {
 
             //console.log(this.booking)
         },
-        toggleSlot(slot) {
-            const price = parseInt(slot.price, 10);
-
-            if (slot.selected) {
-                this.total -= price;
-                this.booking.slotIds = this.booking.slotIds.filter(
-                (slotId) => slotId !== slot.slotId
-                );
-                this.selectedSlotIds = this.selectedSlotIds.filter(
-                (selectedSlotId) => selectedSlotId !== slot.slotId
-                );
-            } else {
-                this.showPrice = true;
-                this.total += price;
-                this.booking.slotIds.push(slot.slotId);
-                this.selectedSlotIds.push(slot.slotId);
-            }
-
-            slot.selected = !slot.selected;
-            console.log(this.selectedSlotIds)
-        },
-        calculateTotalAndBooking() {
-            this.total = this.slots.reduce((acc, slot) => {
-            if (this.selectedSlotIds.includes(slot.slotId)) {
-                return acc + parseInt(slot.price, 10);
-                }
-                return acc;
-            }, 0);
-
-            this.booking.slotIds = [...this.selectedSlotIds];
-        },
-    },
+    }
 }
-
-
 </script>
