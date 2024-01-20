@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Text.Json.Serialization;
 
 namespace RR.API.Models
 {
@@ -15,6 +16,7 @@ namespace RR.API.Models
         public IdentityUser User { get; set; }
 
         // Collection navigation property for the BookingSlots
+        [JsonIgnore]
         public List<BookingSlot> BookingSlots { get; set; }
     }
 }

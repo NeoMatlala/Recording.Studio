@@ -81,5 +81,152 @@ namespace RR.API.Controllers
             return Ok(bookingDTO);
 
         }
+
+        // UPDATE booking
+        [HttpPost("UpdateBooking/{id}")]
+        public IActionResult UpdateBooking(int id, [FromBody] BookingWithSlotsModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var existingBooking = _db.Bookings.Include(b => b.User).Include(bs => bs.BookingSlots).ThenInclude(s => s.Slot).FirstOrDefault(b => b.BookingId == id);
+
+
+            if (existingBooking == null)
+            {
+                return BadRequest("Booking not found");
+            }
+
+            existingBooking.UserId = model.UserId;
+            existingBooking.Artist = model.Artist;
+            existingBooking.Date = model.Date;
+            existingBooking.PhoneNumber = model.PhoneNumber;
+            existingBooking.Price = model.Price;
+
+            _db.Bookings.Update(existingBooking);
+            _db.SaveChanges();
+
+            existingBooking.BookingSlots.Clear();
+
+            foreach(var slotId in model.SlotIds)
+            {
+                var bookingSlot = new BookingSlot
+                {
+                    BookingId = existingBooking.BookingId,
+                    SlotId = slotId
+                };
+
+                _db.BookingSlots.Add(bookingSlot);
+            }
+
+            _db.SaveChanges();
+
+            return Ok(existingBooking);
+
+        }
+
+        // get bookings associated with a user
+        [HttpGet("GetBookingsForId/{id}")]
+        public IActionResult GetBookingsForId(string id)
+        {
+            var bookingsList = _db.Bookings.Include(bs => bs.BookingSlots).ThenInclude(s => s.Slot).Where(b => b.UserId == id).ToList();
+
+            var bookings = bookingsList.Select(b => new BookingDTO
+            {
+                BookingId = b.BookingId,
+                Artist = b.Artist,
+                Date = b.Date,
+                PhoneNumber = b.PhoneNumber,
+                Price = b.Price,
+                BookingSlots = b.BookingSlots.Select(bs => new BookingSlotDTO 
+                { 
+                    SlotId = bs.SlotId,
+                }).ToList()
+
+            }).ToList();
+
+            return Ok(bookings);
+        }
+
+        // DELETE
+        [HttpDelete("DeleteBooking/{id}")]
+        public IActionResult DeleteBooking(int id)
+        {
+            if (id == 0 || id == null)
+            {
+                return BadRequest("Invalid Id");
+            }
+
+            var booking = _db.Bookings.Find(id);
+
+            if(booking == null)
+            {
+                return NotFound("Booking not found");
+            }
+
+            _db.Remove(booking);
+            _db.SaveChanges();
+
+            return Ok(booking);
+        }
+
+
+        // CREATE
+        [HttpPost("CreateBooking")]
+        public IActionResult CreateBooking([FromBody] BookingWithSlotsModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            using (var transaction = _db.Database.BeginTransaction())
+            {
+                try
+                {
+                    // save booking info to booking table & save so that you take that ID and use it in bookingslot below
+                    var booking = new Booking
+                    {
+                        UserId = model.UserId,
+                        Artist = model.Artist,
+                        Date = model.Date,
+                        PhoneNumber = model.PhoneNumber,
+                        Price = model.Price
+                    };
+
+                    _db.Bookings.Add(booking);
+                    _db.SaveChanges();
+
+                    // save to bookingslot table each slot associated with this booking ID 
+                    foreach (var slotId in model.SlotIds)
+                    {
+                        var bookingSlot = new BookingSlot
+                        {
+                            BookingId = booking.BookingId,
+                            SlotId = slotId
+                        };
+
+                        _db.BookingSlots.Add(bookingSlot);
+                    }
+
+                    _db.SaveChanges();
+
+                    // Commit the transaction if everything was successful
+                    transaction.Commit();
+
+                    return Ok(booking);
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception or handle it appropriately
+                    transaction.Rollback();
+                    return StatusCode(500, $"Internal Server Error: {ex.Message}");
+                }
+            }
+
+            
+        }
     }
 }
