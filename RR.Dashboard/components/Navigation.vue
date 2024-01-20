@@ -5,19 +5,31 @@
         </div>
 
         <ul class="mt-10 px-5 space-y-5">
-            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path === '/dashboard' }">
-                <NuxtLink to="/dashboard">Home</NuxtLink>
+            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                :class="{ 'text-black bg-blue-600': $route.path === '/dashboard', 'bg-slate-200': $route.path === '/dashboard' }">
+                <NuxtLink to="/dashboard">
+                    <span v-if="$route.path === '/dashboard'" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                    Home
+                </NuxtLink>
             </li>
-            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/bookings') }">
-                <NuxtLink to="bookings">Bookings</NuxtLink>
+            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/bookings'), 'bg-slate-200': $route.path.startsWith('/bookings') }">
+                <NuxtLink to="/bookings">
+                    <span v-if="$route.path.startsWith('/bookings')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                    Bookings
+                </NuxtLink>
             </li>
-            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/employees') }">
+            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/slots'), 'bg-slate-200': $route.path.startsWith('/slots') }">
+                <NuxtLink to="/slots">
+                    <span v-if="$route.path.startsWith('/slots')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                    Slots
+                </NuxtLink>
+            </li>
+            <li class="hover:bg-gray-100 text-slate-400 p-2 px-8 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/employees') }">
                 <NuxtLink>Employees</NuxtLink>
             </li>
-            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/slots') }">
-                <NuxtLink to="/slots">Slots</NuxtLink>
-            </li>
-            <li class="hover:bg-gray-100 hover:text-black p-2 px-4 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/payments') }">
+            <li class="hover:bg-gray-100 text-slate-400 p-2 px-8 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/payments') }">
                 <NuxtLink>Payments</NuxtLink>
             </li>
         </ul>
