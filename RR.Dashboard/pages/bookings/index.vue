@@ -3,7 +3,7 @@
         <div class="mt-5 max-w-[95%] mx-auto">
             <h1 class="text-4xl text-slate-800 font-medium mb-14">Bookings</h1>
 
-            <div class="relative overflow-x-auto">
+            <div class="relative overflow-x-auto mb-10">
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                         <tr>
