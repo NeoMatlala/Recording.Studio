@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center">
         <div class="max-w-7xl mx-auto w-2/3">
-            <h1 class="text-center text-7xl mb-20 mt-10 font-medium">Create Account</h1>
+            <h1 class="text-center text-7xl mb-12 mt-4 font-medium">Create Account</h1>
 
             <div v-if="errorDisplay" class="flex max-w-lg mx-auto items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -16,7 +16,7 @@
             <form class="max-w-sm mx-auto" @submit.prevent="registerUser">
                 <div class="mb-5">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
-                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@flowbite.com" v-model="user.email" required>
+                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@email.com" v-model="user.email" required>
                 </div>
                 <div class="mb-5">
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
@@ -51,17 +51,34 @@
                         </span>
                     </div>
                 </div>
-                <button type="submit" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center ">Create Account</button>
+                <button type="submit" id="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center ">Create Account</button>
             </form>
             <p class="text-center text-slate-500 font-light mt-4">Already have an account? 
                 <NuxtLink to="/login" class="hover:underline">Login</NuxtLink>
             </p>
+        </div>
+
+        <!-- success modal -->
+        <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow">
+                    <div class="p-4 md:p-5 text-center">
+                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-5000">Account Successfully created!</h3>
+                        <button id="closeButton" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Login</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
 import axios from 'axios'
+import { onMounted } from 'vue'
+import { Modal } from 'flowbite'
 
 export default{
     data(){
@@ -74,17 +91,50 @@ export default{
             showPassword: false,
             hidePasswordIcon : false,
             showPasswordConfirm: false,
-            hidePasswordIconConfirm : false
+            hidePasswordIconConfirm : false,
+            errorMessage: {}
         }
+    },
+    setup(){
+        // onMounted(() => {
+        //     const $buttonElement = document.querySelector('#button');
+        //     const $modalElement = document.querySelector('#popup-modal');
+        //     const $closeButton = document.querySelector('#closeButton');
+        //     const modalOptions = {
+        //         backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
+        //     }
+        //     if ($modalElement) {
+        //         const modal = new Modal($modalElement, modalOptions);
+        //         $buttonElement.addEventListener('click', () => modal.toggle());
+        //         $closeButton.addEventListener('click', () => modal.hide());
+        //     }
+        // })
     },
     methods :{
         async registerUser() {
+            const $modalElement = document.querySelector('#popup-modal');
+            const $closeButton = document.querySelector('#closeButton');
+            const modalOptions = {
+                backdrop: 'static',
+                backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
+            }
+            
             try {
                 const response = await axios.post("https://localhost:7179/api/Auth/Register", this.user)
                 console.log(response.data)
 
                 if(response.data.isSuccess) {
-                    this.$router.replace('/login')
+                    const $modalElement = document.querySelector('#popup-modal');
+
+                    if ($modalElement) {
+                        const modal = new Modal($modalElement, modalOptions);
+                        modal.toggle();
+                        $closeButton.addEventListener('click', () => {
+                            this.$router.push('/login')
+                            modal.hide()
+                            
+                        });
+                    }
                 }
                 
             } catch(error) {
@@ -93,8 +143,9 @@ export default{
                     // The request was made and the server responded with a status code
                     // that falls out of the range of 2xx
                     console.log("Server response data:", error.response.data);
-                    // this.errorDisplay = true
-                    // this.errorMessage = error.response.data.message
+                    this.errorDisplay = true
+                    this.errorMessage = error.response.data.message
+                    
                     console.log("Status code:", error.response.status);
                 } else if (error.request) {
                     // The request was made but no response was received
