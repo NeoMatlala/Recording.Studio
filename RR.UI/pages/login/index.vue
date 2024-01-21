@@ -3,6 +3,27 @@
         <div class="max-w-7xl mx-auto w-2/3">
             <h1 class="text-center text-7xl mb-20 font-medium">Login</h1>
 
+            <!-- incorect password error -->
+            <div v-if="showIncorrectPasswordError" class="flex max-w-sm justify-center mx-auto items-start p-4 mb-5 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ errors.incorrectPassword }} </span>
+                </div>
+            </div>
+            <!-- password error -->
+            <div v-if="showPasswordError" class="flex max-w-md mx-auto items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ errors.passwordErrors[0] }} </span>
+                </div>
+            </div>
+
             <form class="max-w-sm mx-auto" @submit.prevent="loginUser">
                 <div class="mb-5">
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Email</label>
@@ -47,7 +68,13 @@ export default{
             },
             showPassword: false,
             hidePasswordIcon : false,
-            userId : null
+            userId : null,
+            errors: {
+                incorrectPassword: '',
+                passwordErrors: ''
+            },
+            showIncorrectPasswordError: false,
+            showPasswordError: false,
         }
     },
     setup(){
@@ -61,8 +88,6 @@ export default{
         async loginUser() {
             try {
                 const response = await axios.post("https://localhost:7179/api/Auth/Login", this.user)
-
-                //console.log(response.data)
 
                 const userId = response.data.userId
                 const selectedId = useStateUserId()
@@ -80,11 +105,23 @@ export default{
                 console.log("Error creating employee: ", error.message);
 
                 if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
+                    // The request was made and the server responded with a status code that falls out of the range of 2xx
                     console.log("Server response data:", error.response.data);
-                    // this.errorDisplay = true
-                    // this.errorMessage = error.response.data.message
+                    
+                    // incorrct password
+                    if(error.response.data.message == 'Incorrect Password') {
+                        this.errors.incorrectPassword = error.response.data.message
+                        this.showPasswordError = false
+                        this.showIncorrectPasswordError = true
+                    }
+
+                    //password length error
+                    if(error.response.data.errors.Password) {
+                            this.errors.passwordErrors = error.response.data.errors.Password
+                            this.showIncorrectPasswordError = false
+                            this.showPasswordError = true
+                        }
+
                     console.log("Status code:", error.response.status);
                 } else if (error.request) {
                     // The request was made but no response was received
