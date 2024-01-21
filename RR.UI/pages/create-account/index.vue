@@ -3,13 +3,44 @@
         <div class="max-w-7xl mx-auto w-2/3">
             <h1 class="text-center text-7xl mb-12 mt-4 font-medium">Create Account</h1>
 
-            <div v-if="errorDisplay" class="flex max-w-lg mx-auto items-center p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+            <!-- password error -->
+            <div v-if="showPasswordError" class="flex max-w-lg mx-auto items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
                 <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <span class="font-medium">{{ errorMessage }} </span>
+                    <span class="font-medium">{{ errors.passwordErrors[0] }} </span>
+                </div>
+            </div>
+            <!-- confirm password error -->
+            <div v-if="showConfirmPasswordError" class="flex max-w-lg mx-auto items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ errors.ConfirmPasswordError[0] }} </span>
+                </div>
+            </div>
+            <!-- password mismatch error -->
+            <div v-if="showPasswordMismatchError" class="flex max-w-lg mx-auto justify-center items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">Passwords do not match!</span>
+                </div>
+            </div>
+            <!-- username already taken error -->
+            <div v-if="usernameAlreadyTaken" class="flex max-w-lg mx-auto justify-center items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
+                <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
+                </svg>
+                <span class="sr-only">Info</span>
+                <div>
+                    <span class="font-medium">{{ errors.alreadyTaken[0] }}</span>
                 </div>
             </div>
 
@@ -18,11 +49,11 @@
                     <label for="email" class="block mb-2 text-sm font-medium text-gray-900 ">Email</label>
                     <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="name@email.com" v-model="user.email" required>
                 </div>
-                <div class="mb-5">
+                <div class="mb-5 relative">
                     <label for="password" class="block mb-2 text-sm font-medium text-gray-900 ">Password</label>
 
                     <div class="flex">
-                        <input :type="showPassword ? 'text' : 'password'" v-model="user.password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required>
+                        <input :type="showPassword ? 'text' : 'password'" v-model="user.password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" required @input="onPasswordInput" @blur="onPasswordBlur">
                         <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-e-0 border-gray-300 rounded-r-lg cursor-pointer" @click="showHidePassword">
                             <svg v-if="!hidePasswordIcon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
@@ -33,6 +64,17 @@
                             </svg>
 
                         </span>
+                    </div>
+
+                    <div v-if="user.password.length > 0" class="p-4 opacity-80 rounded min-h-[10vh] shadow absolute -right-[26rem] -top-5">
+                        <!-- Your div content goes here -->
+                        <p class="font-medium">Password must:</p>
+                        <ul class="mt-2 text-sm text-slate-500 list-disc ml-5 space-y-1">
+                            <li>Be a minimum length of 5 & maximum length of 50</li>
+                            <li>Have at least one non alphanumeric character</li>
+                            <li>Have at least one digit ('0'-'9')</li>
+                            <li>Have at least one uppercase ('A'-'Z')</li>
+                        </ul>
                     </div>
                 </div>
                 <div class="mb-5">
@@ -52,8 +94,9 @@
                     </div>
                 </div>
                 <button type="submit" id="button" class="text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center ">Create Account</button>
+
             </form>
-            <p class="text-center text-slate-500 font-light mt-4">Already have an account? 
+            <p class="text-center text-slate-500 font-light mt-5">Already have an account? 
                 <NuxtLink to="/login" class="hover:underline">Login</NuxtLink>
             </p>
         </div>
@@ -92,7 +135,15 @@ export default{
             hidePasswordIcon : false,
             showPasswordConfirm: false,
             hidePasswordIconConfirm : false,
-            errorMessage: {}
+            errors: {
+                passwordErrors: '',
+                ConfirmPasswordError: '',
+                alreadyTaken: '',
+            },
+            showPasswordError: false,
+            showConfirmPasswordError: false,
+            showPasswordMismatchError: false,
+            usernameAlreadyTaken: false,
         }
     },
     setup(){
@@ -118,43 +169,67 @@ export default{
                 backdrop: 'static',
                 backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
             }
-            
-            try {
-                const response = await axios.post("https://localhost:7179/api/Auth/Register", this.user)
-                console.log(response.data)
 
-                if(response.data.isSuccess) {
-                    const $modalElement = document.querySelector('#popup-modal');
+            if (this.user.password !== this.user.confirmPassword) {
+                console.log('Passwords fo not match')
+                this.showPasswordMismatchError = true
+            } else {
+                try {
+                    const response = await axios.post("https://localhost:7179/api/Auth/Register", this.user)
+                    console.log(response.data)
 
-                    if ($modalElement) {
-                        const modal = new Modal($modalElement, modalOptions);
-                        modal.toggle();
-                        $closeButton.addEventListener('click', () => {
-                            this.$router.push('/login')
-                            modal.hide()
-                            
-                        });
+                    if(response.data.isSuccess) {
+                        const $modalElement = document.querySelector('#popup-modal');
+
+                        if ($modalElement) {
+                            const modal = new Modal($modalElement, modalOptions);
+                            modal.toggle();
+                            $closeButton.addEventListener('click', () => {
+                                this.$router.push('/login')
+                                modal.hide()
+                                
+                            });
+                        }
+                    }
+                    
+                } catch(error) {
+                    console.log("Error creating employee: ", error.message);
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log("Server response data:", error.response.data);
+
+                        //password length error
+                        if(error.response.data.errors.Password) {
+                            this.errors.passwordErrors = error.response.data.errors.Password
+                            this.showPasswordError = true
+                        }
+
+                        //Confirm password length error
+                        if(error.response.data.errors.ConfirmPassword) {
+                            this.errors.ConfirmPasswordError = error.response.data.errors.ConfirmPassword
+                            console.log(`Password errors: ${this.errors.ConfirmPasswordError}`)
+                            this.showConfirmPasswordError = true
+                        }
+
+                        // username taken
+                        if(error.response.data.errors) {
+                            this.errors.alreadyTaken = error.response.data.errors
+                            this.usernameAlreadyTaken = true
+                        }
+
+                        console.log("Status code:", error.response.status);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log("No response received from the server");
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("Error:", error.message);
                     }
                 }
-                
-            } catch(error) {
-                console.log("Error creating employee: ", error.message);
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log("Server response data:", error.response.data);
-                    this.errorDisplay = true
-                    this.errorMessage = error.response.data.message
-                    
-                    console.log("Status code:", error.response.status);
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    console.log("No response received from the server");
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log("Error:", error.message);
-                }
             }
+            
+            
         },
         showHidePassword() {
             this.showPassword = !this.showPassword;
