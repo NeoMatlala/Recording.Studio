@@ -56,7 +56,7 @@
                     Our slots are two(2) hour slots
                 </p>
 
-                <button type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="bookRehearsal">Book</button>
+                <button id="button" type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="bookRehearsal">Book</button>
 
                 <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
 
@@ -64,6 +64,24 @@
                     <p>R450 x 3 slots</p>
                     <p>{{total}}</p>
                 </div> -->
+            </div>
+        </div>
+
+        <!-- success modal -->
+        <div id="popup-modal" data-modal-backdrop="static" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-md max-h-full">
+                <div class="relative bg-white rounded-lg shadow">
+                    <div class="p-4 md:p-5 text-center">
+                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        </svg>
+                        <h3 class="mb-5 text-lg font-normal text-gray-5000">Rehearsal space successfully booked!</h3>
+                        <button id="activeBookingsButton" type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                            See active bookings
+                        </button>
+                        <button id="closeButton" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Take me to homepage</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -81,6 +99,8 @@ import axios from 'axios';
 import { ref } from 'vue';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import { onMounted, nextTick } from 'vue'
+import { Modal } from 'flowbite'
 
 export default {
     async asyncData({ app }) {
@@ -119,6 +139,24 @@ export default {
 
         const useUserId = useStateUserId()
 
+        onMounted(async () => {
+            await nextTick();
+            const $buttonElement = document.querySelector('#button');
+            const $modalElement = document.querySelector('#popup-modal');
+            const $closeButton = document.querySelector('#closeButton');
+            const $activeBookingsButton = document.querySelector('#activeBookingsButton');
+            const modalOptions = {
+                backdrop: 'static',
+                backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
+            }
+            if ($modalElement) {
+                const modal = new Modal($modalElement, modalOptions);
+                 $buttonElement.addEventListener('click', () => modal.toggle());
+                 $closeButton.addEventListener('click', () => modal.hide());
+                 $activeBookingsButton.addEventListener('click', () => modal.hide());
+            }
+        })
+
         return {
             date,
             format,
@@ -139,8 +177,6 @@ export default {
             });
 
             this.calculateTotalAndBooking();
-            // console.log(this.slots)
-            // console.log(this.selectedSlotIds)
         })
         
     },
@@ -148,7 +184,6 @@ export default {
         async fetchSlots() {
             try {
                 const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
-                //console.log(response.data)
                 this.slots = response.data
 
             } catch (error) {
@@ -164,12 +199,31 @@ export default {
             this.booking.userId = localStorage.getItem('varchar')
             this.booking.price = this.total
 
-            console.log(this.booking)
+            const $modalElement = document.querySelector('#popup-modal');
+            const $closeButton = document.querySelector('#closeButton');
+            const $activeBookingsButton = document.querySelector('#activeBookingsButton');
+            const modalOptions = {
+                backdrop: 'static',
+                backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
+            }
 
             try{
                 const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
                 console.log(response.data)
-                this.$router.replace('/manage-bookings')
+
+                const $modalElement = document.querySelector('#popup-modal');
+                if ($modalElement) {
+                    const modal = new Modal($modalElement, modalOptions);
+                    modal.toggle();
+                    $closeButton.addEventListener('click', () => {
+                        modal.hide()
+                        this.$router.replace('/')
+                    });
+                    $activeBookingsButton.addEventListener('click', () => {
+                        modal.hide()
+                        this.$router.replace('/manage-bookings')
+                    });
+                }
             } catch (error) {
                 console.log("Error creating employee: ", error.message);
 
