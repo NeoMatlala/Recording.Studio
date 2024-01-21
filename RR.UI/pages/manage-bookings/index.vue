@@ -2,7 +2,7 @@
     <div class="flex justify-center items-center">
         <div class="max-w-7xl w-full mx-auto">
 
-            <div>
+            <div v-if="!showBookingMenu">
                 <div class="flex mt-8 justify-between items-center">
                     <h1 class="text-4xl font-medium">Active rehearsal bookings</h1>
                     <NuxtLink to="/book-rehearsal" class="underline">Make new booking</NuxtLink>
@@ -27,7 +27,7 @@
                         </div>
                     </div> -->
 
-                    <div  v-for="slot in slots" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div v-for="slot in slots" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a>
                             <img class="rounded-t-lg" src="../../assets/img/view-booking-img.jpg" alt="" />
                         </a>
