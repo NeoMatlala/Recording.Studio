@@ -2,30 +2,33 @@
     <div class="max-w-7xl mx-auto">
         <h1 class="text-5xl mt-16 mb-10 font-medium">Select available slot</h1>
 
-        <div class="flex justify-between gap-5 items-center">
-            <div class="w-1/3">
+        <div class="flex justify-between gap-x-5 items-center">
+            <div class="w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Band or Artist name</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.artist" placeholder="Band Of Neo" required>
+                <small v-if="showBandValidationError" class="text-red-500">Band or artist name is required</small>
             </div>
-            <div class="w-1/3">
+            <div class="w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Contact number</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.phoneNumber" placeholder="0721235698" required>
+                <small v-if="showContactNumberValidationError" class="text-red-500">Contact number is required</small>
             </div>
-            <div class="w-1/3">
+            <div class="w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Rehearsal date</label>
                 <!-- <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="select date" required> -->
                 <VueDatePicker v-model="date" :enable-time-picker="false"></VueDatePicker>
+                <small v-if="showDateValidationError" class="text-red-500">Rehearsal date is required</small>
             </div>
         </div>
 
-        <div class="flex justify-between items-start gap-10 mt-16">
+        <div class="flex justify-between items-start gap-10 mt-10">
             
             <!-- slots  -->
             <div class="w-2/3" v-if="date">
-                <h1 class="font-medium text-4xl mb-2" @click="showDate">Show date</h1>
                 <h1 class="font-medium text-4xl mb-2">02 Jan</h1>
                 <h6 class="font-light text-4xl mb-10">Tuesday</h6>
 
+                <p v-if="slotsValidationError" class="text-red-500 mb-3">Selecting a slot is required</p>
                 <div class="grid grid-cols-3  gap-4">
                     <div v-for="slot in slots"
                      :key="slot.id"
@@ -39,14 +42,18 @@
                     </div>
                 </div>
 
-                <div class="flex items-start mt-10">
-                    <div class="flex items-center h-5">
-                    <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" required>
+                <div>
+                    <div class="flex items-start mt-10 mb-">
+                        <div class="flex items-center h-5">
+                            <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800" v-model="acceptTsCs" required>
+                        </div>
+                        <label for="remember" class="ms-2 text-sm font-light text-gray-900 dark:text-gray-300">
+                            I agree to  R&R studio' <span class="hover:underline">Terms of Service</span> and <span class="hover:underline">Privacy Policy</span>.
+                        </label>
                     </div>
-                    <label for="remember" class="ms-2 text-sm font-light text-gray-900 dark:text-gray-300">
-                        I agree to  R&R studio' <span class="hover:underline">Terms of Service</span> and <span class="hover:underline">Privacy Policy</span>.
-                    </label>
+                    <small v-if="checkValidationError" class="text-red-500">Selecting T's and C's is required</small>
                 </div>
+                
             </div>
 
             <!-- price  -->
@@ -120,9 +127,15 @@ export default {
                 price: '',
                 slotIds: []
             },
+            acceptTsCs: false,
             total: 0,
             showPrice: false,
-            selectedSlotIds: []
+            selectedSlotIds: [],
+            showBandValidationError: false,
+            showContactNumberValidationError: false,
+            showDateValidationError: false,
+            slotsValidationError: false,
+            checkValidationError: false
         }
         
     },
@@ -191,61 +204,95 @@ export default {
             }
         },
         async bookRehearsal(){
-            const correctDateFormat = this.format(this.date);
+            var isValid = false
+            this.showBandValidationError = false
+            this.showContactNumberValidationError = false
+            this.showDateValidationError = false
+            this.checkValidationError = false
 
-            console.log(this.total)
-
-            this.booking.date = correctDateFormat
-            this.booking.userId = localStorage.getItem('varchar')
-            this.booking.price = this.total
-
-            const $modalElement = document.querySelector('#popup-modal');
-            const $closeButton = document.querySelector('#closeButton');
-            const $activeBookingsButton = document.querySelector('#activeBookingsButton');
-            const modalOptions = {
-                backdrop: 'static',
-                backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
+            // validation
+            if(!this.booking.artist) {
+                this.showBandValidationError = true
+                isValid = true
             }
 
-            try{
-                const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
-                console.log(response.data)
+            if(!this.booking.phoneNumber) {
+                this.showContactNumberValidationError = true
+                isValid = true
+            }
+
+            if(!this.date) {
+                this.showDateValidationError = true
+                isValid = true
+            }
+
+            if(this.selectedSlotIds.length == 0) {
+                this.slotsValidationError = true
+                isValid = true
+            }
+
+            if(!this.acceptTsCs){
+                this.checkValidationError = true
+                isValid = true
+            }
+
+            if (isValid) {
+                return; 
+            } else {
+                const correctDateFormat = this.format(this.date);
+
+                console.log(this.total)
+
+                this.booking.date = correctDateFormat
+                this.booking.userId = localStorage.getItem('varchar')
+                this.booking.price = this.total
 
                 const $modalElement = document.querySelector('#popup-modal');
-                if ($modalElement) {
-                    const modal = new Modal($modalElement, modalOptions);
-                    modal.toggle();
-                    $closeButton.addEventListener('click', () => {
-                        modal.hide()
-                        this.$router.replace('/')
-                    });
-                    $activeBookingsButton.addEventListener('click', () => {
-                        modal.hide()
-                        this.$router.replace('/manage-bookings')
-                    });
+                const $closeButton = document.querySelector('#closeButton');
+                const $activeBookingsButton = document.querySelector('#activeBookingsButton');
+                const modalOptions = {
+                    backdrop: 'static',
+                    backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
                 }
-            } catch (error) {
-                console.log("Error creating employee: ", error.message);
 
-                if (error.response) {
-                    // The request was made and the server responded with a status code
-                    // that falls out of the range of 2xx
-                    console.log("Server response data:", error.response.data);
-                    // this.errorDisplay = true
-                    // this.errorMessage = error.response.data.message
-                    console.log("Status code:", error.response.status);
-                } else if (error.request) {
-                    // The request was made but no response was received
-                    console.log("No response received from the server");
-                } else {
-                    // Something happened in setting up the request that triggered an Error
-                    console.log("Error:", error.message);
+                try{
+                    const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
+                    console.log(response.data)
+
+                    const $modalElement = document.querySelector('#popup-modal');
+                    if ($modalElement) {
+                        const modal = new Modal($modalElement, modalOptions);
+                        modal.toggle();
+                        $closeButton.addEventListener('click', () => {
+                            modal.hide()
+                            this.$router.replace('/')
+                        });
+                        $activeBookingsButton.addEventListener('click', () => {
+                            modal.hide()
+                            this.$router.replace('/manage-bookings')
+                        });
+                    }
+                } catch (error) {
+                    console.log("Error creating employee: ", error.message);
+
+                    if (error.response) {
+                        // The request was made and the server responded with a status code
+                        // that falls out of the range of 2xx
+                        console.log("Server response data:", error.response.data);
+                        // this.errorDisplay = true
+                        // this.errorMessage = error.response.data.message
+                        console.log("Status code:", error.response.status);
+                    } else if (error.request) {
+                        // The request was made but no response was received
+                        console.log("No response received from the server");
+                    } else {
+                        // Something happened in setting up the request that triggered an Error
+                        console.log("Error:", error.message);
+                    }
                 }
             }
 
             
-
-            //console.log(this.booking)
         },
         toggleSlot(slot) {
             const price = parseInt(slot.price, 10);
