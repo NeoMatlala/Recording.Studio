@@ -25,8 +25,8 @@
             
             <!-- slots  -->
             <div class="w-2/3" v-if="date">
-                <h1 class="font-medium text-4xl mb-2">02 Jan</h1>
-                <h6 class="font-light text-4xl mb-10">Tuesday</h6>
+                <h1 class="font-medium text-4xl mb-2">{{ formattedDateObj.day }} {{ formattedDateObj.selectedMonthName }}</h1>
+                <h6 class="font-light text-4xl mb-10">{{ formattedDateObj.dayOfWeek }}</h6>
 
                 <p v-if="slotsValidationError" class="text-red-500 mb-3">Selecting a slot is required</p>
                 <div class="grid grid-cols-3  gap-4">
@@ -147,7 +147,23 @@ export default {
             const month = (date.getMonth() + 1).toString().padStart(2, '0');
             const year = date.getFullYear();
 
-            return `${year}-${month}-${day}`;
+            const convertedMonth = (date.getMonth() < 10 ? date.getMonth() : date.getMonth()).toString();
+
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+            const selectedMonthName = monthNames[convertedMonth]
+
+            const formattedDate = `${year}-${month}-${day}`
+
+            // Get the day of the week
+            const dayOfWeek = new Date(formattedDate).toLocaleDateString('en-US', { weekday: 'long' });
+
+            return {
+                formattedDate,
+                day,
+                selectedMonthName,
+                dayOfWeek
+            };
         }
 
         const useUserId = useStateUserId()
@@ -173,6 +189,7 @@ export default {
         return {
             date,
             format,
+            formattedDateObj: computed(() => format(date.value)),
             useUserId
         }
     },
@@ -239,11 +256,12 @@ export default {
             if (isValid) {
                 return; 
             } else {
+                //const correctDateFormat = this.format(this.date);
                 const correctDateFormat = this.format(this.date);
 
                 console.log(this.total)
 
-                this.booking.date = correctDateFormat
+                this.booking.date = correctDateFormat.formattedDate
                 this.booking.userId = localStorage.getItem('varchar')
                 this.booking.price = this.total
 
@@ -254,6 +272,8 @@ export default {
                     backdrop: 'static',
                     backdropClasses: 'bg-gray-900 bg-opacity-50 fixed inset-0 z-40'
                 }
+
+                //console.log(this.booking)
 
                 try{
                     const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
