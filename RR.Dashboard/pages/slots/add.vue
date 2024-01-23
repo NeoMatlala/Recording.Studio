@@ -29,6 +29,7 @@
 
 <script>
 import axios from 'axios';
+import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
@@ -38,6 +39,17 @@ export default{
                 time: '',
                 price: ''
             }
+        }
+    },
+    setup() {
+        const setup = () => {
+            definePageMeta({
+                middleware: [authMiddleware],
+            })
+        }
+
+        return {
+            setup
         }
     },
     methods: {

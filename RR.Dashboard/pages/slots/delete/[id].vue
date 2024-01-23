@@ -49,6 +49,7 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { onMounted } from 'vue'
 import { Modal } from 'flowbite'
+import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
@@ -58,6 +59,12 @@ export default{
     },
     setup() {
         const id = ref(useRoute().params.id)
+
+        const setup = () => {
+            definePageMeta({
+                middleware: [authMiddleware],
+            })
+        }
 
         onMounted(() => {
             const $buttonElement = document.querySelector('#button');
@@ -74,7 +81,8 @@ export default{
         })
 
         return {
-            id
+            id,
+            setup
         }
     },
     created() {

@@ -47,6 +47,7 @@
 
 <script>
 import axios from 'axios';
+import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
@@ -57,8 +58,16 @@ export default{
     },
     setup(){
         const config = useRuntimeConfig()
+
+        const setup = () => {
+            definePageMeta({
+                middleware: [authMiddleware],
+            })
+        }
+
         return {
-            baseApi: config.public.apiBase
+            baseApi: config.public.apiBase,
+            setup
         }
     },
     created(){

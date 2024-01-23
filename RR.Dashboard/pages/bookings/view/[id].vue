@@ -76,6 +76,7 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
@@ -88,8 +89,15 @@ export default{
     setup(){
         const id = ref(useRoute().params.id)
 
+        const setup = () => {
+            definePageMeta({
+                middleware: [authMiddleware]
+            })
+        }
+
         return {
-            id
+            id,
+            setup
         }
     },
     created(){

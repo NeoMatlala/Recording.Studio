@@ -82,16 +82,16 @@ export default {
     },
     setup() {
         const setup = () => {
-        definePageMeta({
-            //layout: 'bookings',
-            middleware: [
-            authMiddleware
-            ]
-        })
+            definePageMeta({
+                //layout: 'bookings',
+                middleware: [
+                    authMiddleware
+                ]
+            })
         }
 
         return {
-        setup
+            setup
         }
     },
     created() {
