@@ -48,9 +48,15 @@ import axios from 'axios'
 export default{
     //layout: 'default',
     setup(){
-        definePageMeta({
-            layout: 'account'
-        })
+        const setup = () => {
+            definePageMeta({
+                layout: 'account'
+            })
+        }
+
+        return {
+            setup
+        }
     },
     data() {
         return {
@@ -62,6 +68,17 @@ export default{
             hidePasswordIcon : false,
             showAccountError: false
         }
+    },
+    mounted() {
+        const redirect = localStorage.getItem('redirectedFromAuthMiddleware')
+
+        console.log(redirect)
+
+        if(redirect === 'true') {
+            localStorage.removeItem('redirectedFromAuthMiddleware')
+            window.location.reload(true)
+        }
+        
     },
     methods: {
         checkAdmin(){

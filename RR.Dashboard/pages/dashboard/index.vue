@@ -27,12 +27,25 @@
 
 <script>
 import axios from 'axios'
+import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
         return {
             slotCount: 0,
             bookingCount: 0
+        }
+    },
+    setup() {
+        const setup = () => {
+            definePageMeta({
+                middleware: [authMiddleware],
+                layout: 'default'
+            })
+        }
+
+        return {
+            setup
         }
     },
     created() {
