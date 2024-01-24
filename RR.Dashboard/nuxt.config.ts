@@ -8,4 +8,7 @@ export default defineNuxtConfig({
       autoprefixer: {},
     },
   },
+  plugins: [
+    '~/plugins/apexcharts.client.js'
+  ]
 })

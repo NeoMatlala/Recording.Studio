@@ -3,6 +3,7 @@
         <div class="mt-5 max-w-[95%] mx-auto">
             <h1 class="text-2xl mb-10 text-slate-800 font-medium">Dashboard</h1>
 
+            <!-- top cards -->
             <div class="flex justify-start items-center gap-8 mb-10">
                 <div class="block w-1/4 gap-x-5 p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
                     <div class="flex">
@@ -94,7 +95,17 @@
                 </div>
             </div>
 
-            <div class="flex justify-start items-stretch gap-8">
+            <!-- graph -->
+            <div class="block p-3 bg-white border shadow-sm border-slate-300 rounded-lg mb-10">
+                <h3 class="font-medium text-xl mb-1">Rehearsal space bookings</h3>
+                <p class="text-slate-500 text-sm mb-5">An overview of all the bookings this year</p>
+
+                <Chart />
+            </div>
+            
+
+            <!-- latest section cards -->
+            <div class="flex justify-start items-stretch gap-8 mb-10">
                 <!-- latest customers -->
                 <div class="flex flex-col w-1/3 gap-x-5 p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
                     <div class="flex justify-between items-center">
@@ -297,6 +308,149 @@
                     </div>
                 </div>
             </div>
+
+            <!-- payments table -->
+            <div class="block p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h3 class="font-medium text-xl mb-1">Latest Payments</h3>
+                        <p class="text-slate-500 text-sm">A list of the latest payments</p>
+                    </div>
+                    
+
+                    <NuxtLink to="" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
+                        View all 
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
+                            <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                        </svg>
+                    </NuxtLink>
+                </div>
+
+                <div class="relative overflow-x-auto mt-8">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 ">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    TRANSACTION
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    DATE & TIME
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    AMOUNT
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    STATUS
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Apple MacBook Pro 17"
+                                </th>
+                                <td class="px-6 py-4">
+                                    Silver
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-red-100 text-red-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">Reversed</span>
+                                </td>
+                               
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Microsoft Surface Pro
+                                </th>
+                                <td class="px-6 py-4">
+                                    White
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop PC
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Completed</span>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Apple MacBook Pro 17"
+                                </th>
+                                <td class="px-6 py-4">
+                                    Silver
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Completed</span>
+                                </td>
+                               
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Microsoft Surface Pro
+                                </th>
+                                <td class="px-6 py-4">
+                                    White
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop PC
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Pending</span>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Microsoft Surface Pro
+                                </th>
+                                <td class="px-6 py-4">
+                                    White
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop PC
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Completed</span>
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Apple MacBook Pro 17"
+                                </th>
+                                <td class="px-6 py-4">
+                                    Silver
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">Completed</span>
+                                </td>
+                               
+                            </tr>
+                            <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    Microsoft Surface Pro
+                                </th>
+                                <td class="px-6 py-4">
+                                    White
+                                </td>
+                                <td class="px-6 py-4">
+                                    Laptop PC
+                                </td>
+                                <td class="px-6 py-4">
+                                    <span class="bg-indigo-100 text-indigo-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-indigo-900 dark:text-indigo-300">Pending</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
         </div>
     </div>
 </template>
@@ -304,6 +458,7 @@
 <script>
 import axios from 'axios'
 import authMiddleware from '~/middleware/auth'
+import Chart from '~/components/Chart.vue'
 
 export default{
     data() {
@@ -312,6 +467,7 @@ export default{
             bookingCount: 0
         }
     },
+    components: {Chart},
     setup() {
         const setup = () => {
             definePageMeta({
