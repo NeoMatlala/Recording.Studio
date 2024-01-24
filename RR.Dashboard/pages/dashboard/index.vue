@@ -13,7 +13,6 @@
                                 <path fill-rule="evenodd" d="M1.5 4.875C1.5 3.839 2.34 3 3.375 3h17.25c1.035 0 1.875.84 1.875 1.875v9.75c0 1.036-.84 1.875-1.875 1.875H3.375A1.875 1.875 0 0 1 1.5 14.625v-9.75ZM8.25 9.75a3.75 3.75 0 1 1 7.5 0 3.75 3.75 0 0 1-7.5 0ZM18.75 9a.75.75 0 0 0-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 0 0 .75-.75V9.75a.75.75 0 0 0-.75-.75h-.008ZM4.5 9.75A.75.75 0 0 1 5.25 9h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H5.25a.75.75 0 0 1-.75-.75V9.75Z" clip-rule="evenodd" />
                                 <path d="M2.25 18a.75.75 0 0 0 0 1.5c5.4 0 10.63.722 15.6 2.075 1.19.324 2.4-.558 2.4-1.82V18.75a.75.75 0 0 0-.75-.75H2.25Z" />
                             </svg>
-
                         </div>
                         <div class="w-2/3 flex flex-col gap-1 items-end">
                             <p class="font-normal text-base text-gray-800">Total Revenue</p>
@@ -102,7 +101,6 @@
 
                 <Chart />
             </div>
-            
 
             <!-- latest section cards -->
             <div class="flex justify-start items-stretch gap-8 mb-10">
@@ -119,59 +117,7 @@
                         </NuxtLink>
                     </div>
 
-                    <div class="mt-10">
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                    <svg class="absolute w-8 h-8 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                                </div>
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/thomas-lean.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/neil-sims.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/lana-byrd.png" alt="">
-                                <p class="text-slate-500">user@gmail.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                    </div>
+                    <LatestCustomers />
                 </div>
 
                 <!-- latest bookings -->
@@ -187,60 +133,10 @@
                         </NuxtLink>
                     </div>
 
-                    <div class="mt-10">
-                        <div class="flex justify-between items-center">
-                            <div class="font-medium dark:text-white">
-                                <div>Zaza</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">user@email.com</div>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="font-medium dark:text-white">
-                                <div>Band Of God</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">user@email.com</div>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R250</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="font-medium dark:text-white">
-                                <div>The Mshengu Project</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">user@email.com</div>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R450</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="font-medium dark:text-white">
-                                <div>Musa Sukwene</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">user@email.com</div>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R400</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="font-medium dark:text-white">
-                                <div>Takie Ndou</div>
-                                <div class="text-sm text-gray-500 dark:text-gray-400">user@email.com</div>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">R650</h3>
-                            </div>
-                        </div>
-                    </div>
+                    <LatestBookings />
                 </div>
 
-                <!-- latest customers -->
+                <!-- most bookings -->
                 <div class="flex flex-col w-1/3 gap-x-5 p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
                     <div class="flex justify-between items-center">
                         <h3 class="font-medium text-lg">Most bookings</h3>
@@ -459,6 +355,8 @@
 import axios from 'axios'
 import authMiddleware from '~/middleware/auth'
 import Chart from '~/components/Chart.vue'
+import LatestBookings from '~/components/LatestBookings.vue'
+import LatestCustomers from '~/components/LatestCustomers.vue'
 
 export default{
     data() {
@@ -467,7 +365,11 @@ export default{
             bookingCount: 0
         }
     },
-    components: {Chart},
+    components: {
+        Chart,
+        LatestBookings,
+        LatestCustomers,
+    },
     setup() {
         const setup = () => {
             definePageMeta({
