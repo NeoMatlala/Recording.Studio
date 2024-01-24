@@ -37,14 +37,12 @@ export default{
         async getBookings() {
             try{
                 var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
-                console.log(response.data)
-                console.log()
 
                 for(var i = response.data.length - 1; i >= 5; i--) {
                     this.bookings.push(response.data[i])
                 }
 
-                console.log(this.bookings)
+                //console.log(this.bookings)
 
             } catch(error) {
                 console.log("Error getting bookings: ", error.message)

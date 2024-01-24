@@ -109,7 +109,7 @@
                     <div class="flex justify-between items-center">
                         <h3 class="font-medium text-lg">Latest customers</h3>
 
-                        <NuxtLink to="" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
+                        <NuxtLink to="/bookings" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
                             View all 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
                                 <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -125,7 +125,7 @@
                     <div class="flex justify-between items-center">
                         <h3 class="font-medium text-lg">Latest bookings</h3>
 
-                        <NuxtLink to="" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
+                        <NuxtLink to="/bookings" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
                             View all 
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3">
                                 <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
@@ -149,59 +149,7 @@
                         </NuxtLink>
                     </div>
 
-                    <div class="mt-10">
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/michael-gough.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">13</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <div class="relative w-6 h-6 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
-                                    <svg class="absolute w-8 h-8 text-gray-400 -left-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
-                                </div>
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">12</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/thomas-lean.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">8</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/neil-sims.png" alt="">
-                                <p class="text-slate-500">email@flowbite.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">5</h3>
-                            </div>
-                        </div>
-                        <hr class="my-5 border-gray-200 sm:mx-auto" />
-                        <div class="flex justify-between items-center">
-                            <div class="w-3/4 flex justify-start items-center gap-x-3">
-                                <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/lana-byrd.png" alt="">
-                                <p class="text-slate-500">user@gmail.com</p>
-                            </div>
-                            <div class="w-1/4 flex justify-end">
-                                <h3 class="font-medium text-lg">3</h3>
-                            </div>
-                        </div>
-                    </div>
+                    <MostBookings />
                 </div>
             </div>
 
@@ -212,7 +160,6 @@
                         <h3 class="font-medium text-xl mb-1">Latest Payments</h3>
                         <p class="text-slate-500 text-sm">A list of the latest payments</p>
                     </div>
-                    
 
                     <NuxtLink to="" class="text-sm hover:underline hover:underline-offset-1 flex justify-start items-center gap-x-2">
                         View all 
