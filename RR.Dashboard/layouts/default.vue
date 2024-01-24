@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full bg-slate-100 flex justify-start items-start h-screen">
-        <Navigation class="w-1/6" />
-        <div class="w-5/6">
+    <div class="w-full bg-slate-100 flex justify-start items-stretch h-auto mb-10">
+        <Navigation class="w-1/6 h-screen" />
+        <div class="w-5/6 pb-10 h-full">
             <div class="bg-white w-full h-16">
                 <div class="bg-white h-full relative flex items-center gap-2 justify-end max-w-[95%] mx-auto">
                     <div class="h-full hover:scale-105 cursor-pointer flex items-center gap-2 justify-end" @click="dropdownToggle" >
@@ -11,7 +11,7 @@
                         </svg>
                     </div>
                     
-                    <!-- Dropdown menu -->
+                    
                     <div v-if="showDropdown" id="dropdown" class="z-10 absolute top-16 bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
                         <ul class="py-2 text-sm text-gray-700">
                             <li>
@@ -30,9 +30,8 @@
                     </div>
                 </div>
             </div>
-            <slot class="mt-5 max-w-[95%] mx-auto"/>
+            <slot class="mt-5 h-full max-w-[95%] mx-auto"/>
         </div>
-        
     </div>
   </template>
   
