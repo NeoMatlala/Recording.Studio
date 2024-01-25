@@ -1,73 +1,76 @@
 <template>
     <div class="w-full">
         <div class="mt-5 max-w-[95%] mx-auto">
-            <h1 class="text-4xl text-slate-800 font-medium mb-14">Booking  #{{ booking.bookingId }} </h1>
+            <h1 class="text-3xl text-slate-800 font-medium mb-10">Booking  #{{ booking.bookingId }} </h1>
 
-            <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3"></th>
-                            <th scope="col" class="px-6 py-3">
-                                Client Information
-                            </th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Booked By
-                            </th>
-                            <td class="px-6 py-4">
-                                {{booking.userName}}
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Artist
-                            </th>
-                            <td class="px-6 py-4">
-                                {{booking.artist}}
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Date of Rehearsal
-                            </th>
-                            <td class="px-6 py-4">
-                                {{booking.date}}
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Phone Number
-                            </th>
-                            <td class="px-6 py-4">
-                                {{booking.phoneNumber}}
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Cost to Client
-                            </th>
-                            <td class="px-6 py-4">
-                                R {{booking.price}}
-                            </td>
-                        </tr>
-                        <tr class="odd:bg-white even:bg-gray-50 border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                Rehearsal Slots
-                            </th>
-                            <td class="px-6 flex justify-start items-center gap-3 py-4">
-                                <div class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400" v-for="slot in slotNames">
-                                    {{ slot }}
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="block p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3"></th>
+                                <th scope="col" class="px-6 py-3">
+                                    Client Information
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Booked By
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{booking.userName}}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Artist
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{booking.artist}}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Date of Rehearsal
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{booking.date}}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Phone Number
+                                </th>
+                                <td class="px-6 py-4">
+                                    {{booking.phoneNumber}}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Cost to Client
+                                </th>
+                                <td class="px-6 py-4">
+                                    R {{booking.price}}
+                                </td>
+                            </tr>
+                            <tr class="odd:bg-white even:bg-gray-50 border-b">
+                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                                    Rehearsal Slots
+                                </th>
+                                <td class="px-6 flex justify-start items-center gap-3 py-4">
+                                    <div class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400" v-for="slot in slotNames">
+                                        {{ slot }}
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
+
+            
         </div>
     </div>
 </template>
