@@ -1,7 +1,7 @@
 <template>
-    <div class="w-full bg-slate-100 flex justify-start items-stretch h-auto mb-10">
-        <Navigation class="w-1/6 h-screen" />
-        <div class="w-5/6 pb-10 h-full">
+    <div class="w-full bg-slate-100 min-h-screen pb-10">
+        <Navigation class="w-64 h-full fixed top-0 left-0" />
+        <div class="w-[calc(100%-256px)] pb-10 h-full" style="margin-left: 256px;">
             <div class="bg-white w-full h-16">
                 <div class="bg-white h-full relative flex items-center gap-2 justify-end max-w-[95%] mx-auto">
                     <div class="h-full hover:scale-105 cursor-pointer flex items-center gap-2 justify-end" @click="dropdownToggle" >
