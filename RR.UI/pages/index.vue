@@ -1,5 +1,5 @@
 <template>
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto mt-24">
         <h1 class="ml-56 text-right leading-relaxed text-7xl font-medium">
             Where Recording, Mixing, Mastering, and Rehearsal <br> Unite in Perfect Harmony.
         </h1>
@@ -36,7 +36,7 @@
                 <img src="../assets/img/studio.jpg" alt="" class="w-full h-full">
             </div>
 
-            <div class="w-1/2 ">
+            <div class="w-1/2" id="services-section">
                 <small class="text-slate-400">We love what we do</small>
                 <h1 class="text-8xl font-medium">Services</h1>
 

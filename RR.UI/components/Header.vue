@@ -1,6 +1,6 @@
 <template>
-    <nav class="bg-white mb-6 max-w-7xl mx-auto border-b border-gray-200">
-        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4">
+    <nav class="bg-white mb-6 max-w-7xl mx-auto">
+        <div class="max-w-screen-xl flex flex-wrap bg-white border-b border-gray-200 fixed top-0 w-full items-center justify-between mx-auto py-4">
             <NuxtLink to="/" class="text-black font-medium text-5xl">
                 R&R<span class="text-slate-300 text-4xl font-medium">Studios</span>
             </NuxtLink>
@@ -12,17 +12,17 @@
             </button>
             <div v-if="$route.path !== '/manage-bookings' && $route.path !== '/book-rehearsal'" class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
-                    <li>
-                        <a class="cursor-pointer block py-2 px-3 text-gray-900 md:p-0 md:hover:underline" aria-current="page">Services</a>
+                    <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/services')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:p-0 md:hover:underline" >
+                        <NuxtLink to="/services"  aria-current="page">Services</NuxtLink>
                     </li>
-                    <li>
-                        <a class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">Studios</a>
+                    <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/studios')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
+                        <NuxtLink to="/studios">Studios</NuxtLink>
                     </li>
-                    <li>
-                        <a class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">Team</a>
+                    <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/the-team')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
+                        <NuxtLink to="/the-team">Team</NuxtLink>
                     </li>
-                    <li>
-                        <a class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">Contact Us</a>
+                    <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/contact-us')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
+                        <NuxtLink to="/contact-us">Contact</NuxtLink>
                     </li>
                 </ul>
             </div>

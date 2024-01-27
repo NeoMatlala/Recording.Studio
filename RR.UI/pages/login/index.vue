@@ -1,5 +1,5 @@
 <template>
-    <div class="flex justify-center items-center">
+    <div class="flex justify-center items-center mt-28">
         <div class="max-w-7xl mx-auto w-2/3">
             <h1 class="text-center text-7xl mb-20 font-medium">Login</h1>
 
