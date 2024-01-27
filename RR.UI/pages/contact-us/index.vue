@@ -1,29 +1,29 @@
 <template>
-    <div class="max-w-7xl mx-auto mt-32">
-        <div class="flex mt-16 justify-between items-center gap-10">
-            <div class="rounded-lg bg-slate-100 text-slate-600 w-1/2 py-16 h-auto flex justify-center items-center">
-                <div class="w-2/3 mx-auto">
-                    <h1 class="font-medium text-4xl mb-5">Contact Us</h1>
-                    <p class="text-base leading-relaxed mb-8">We value your feedback and inquiries. Feel free to reach out to us through the contact details below. Alternatively, you can use the form provided, and we'll get back to you as soon as possible.</p>
+    <div class="max-w-7xl mx-auto mt-32 px-4 md:px-0">
+        <div class="flex flex-col md:flex-row mt-16 justify-between items-center gap-5 md:gap-10">
+            <div class="rounded-lg bg-slate-100 text-slate-600 w-full md:w-1/2 p-5 md:p-0 md:py-16 h-auto flex justify-center items-center">
+                <div class="w-full md:w-2/3 md:mx-auto">
+                    <h1 class="font-medium text-3xl md:text-4xl mb-5">Contact Us</h1>
+                    <p class="text-sm md:text-base leading-relaxed mb-8">We value your feedback and inquiries. Feel free to reach out to us through the contact details below. Alternatively, you can use the form provided, and we'll get back to you as soon as possible.</p>
 
                     <div class="mb-5 flex justify-start items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 md:w-4 md:h-4">
                             <path fill-rule="evenodd" d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z" clip-rule="evenodd" />
                         </svg>
-                        <p>015 263 5469</p>
+                        <p class="text-sm md:text-base">015 263 5469</p>
                     </div>
                     <div class="mb-5 flex justify-start items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-3 h-3 md:w-4 md:h-4">
                             <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
                             <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
                         </svg>
-                        <p>info@r&rstudios.io</p>
+                        <p class="text-sm md:text-base">info@r&rstudios.io</p>
                     </div>
-                    <div class="mb-5 flex justify-start items-center gap-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-fill w-4 h-4" viewBox="0 0 16 16">
+                    <div class="mb-5 flex justify-start items-start md:items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-geo-fill w-3 h-3 md:w-4 md:h-4" viewBox="0 0 16 16">
                             <path fill-rule="evenodd" d="M4 4a4 4 0 1 1 4.5 3.969V13.5a.5.5 0 0 1-1 0V7.97A4 4 0 0 1 4 3.999zm2.493 8.574a.5.5 0 0 1-.411.575c-.712.118-1.28.295-1.655.493a1.3 1.3 0 0 0-.37.265.3.3 0 0 0-.057.09V14l.002.008.016.033a.6.6 0 0 0 .145.15c.165.13.435.27.813.395.751.25 1.82.414 3.024.414s2.273-.163 3.024-.414c.378-.126.648-.265.813-.395a.6.6 0 0 0 .146-.15l.015-.033L12 14v-.004a.3.3 0 0 0-.057-.09 1.3 1.3 0 0 0-.37-.264c-.376-.198-.943-.375-1.655-.493a.5.5 0 1 1 .164-.986c.77.127 1.452.328 1.957.594C12.5 13 13 13.4 13 14c0 .426-.26.752-.544.977-.29.228-.68.413-1.116.558-.878.293-2.059.465-3.34.465s-2.462-.172-3.34-.465c-.436-.145-.826-.33-1.116-.558C3.26 14.752 3 14.426 3 14c0-.599.5-1 .961-1.243.505-.266 1.187-.467 1.957-.594a.5.5 0 0 1 .575.411"/>
                         </svg>
-                        <p>45 Thabo Grobler Street, Polokwane, Limpopo</p>
+                        <p class="text-sm md:text-base">45 Thabo Grobler Street, Polokwane, Limpopo</p>
                     </div>
 
                     <p class="font-medium text-xl mt-10 mb-3">Social Media</p>
@@ -40,17 +40,16 @@
                         </svg>
                     </div>
                 </div>
-                
             </div>
 
-            <div class="rounded-lg w-1/2 h-full">
+            <div class="rounded-lg w-full md:w-1/2 h-full">
                 <form class="mt-5">
-                    <div class="grid grid-cols-2 gap-5">
-                        <div class="mb-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-5">
+                        <div>
                             <label for="text" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
                             <input type="text" id="text" class="bg-gray-50 border border-gray-300 placeholder-slate-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Lebogang Medupe" required>
                         </div>
-                        <div class="mb-5">
+                        <div>
                             <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email Address</label>
                             <input type="email" id="email" class="bg-gray-50 placeholder-slate-300 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Lm@email.com" required>
                         </div>
