@@ -59,7 +59,7 @@
             
         </div>
 
-        <div v-if="showMobileMenu" class="bg-white w-full z-50 h-screen">
+        <div v-if="showMobileMenu" class="bg-white w-full z-50 overflow-hidden h-screen">
             <ul class="font-medium h-full flex flex-col items-center justify-center text-3xl gap-y-10 p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white">
                 <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path === '/'}" class="cursor-pointer block py-2 px-3 text-gray-900 md:p-0 md:hover:underline" >
                     <NuxtLink to="/" @click="toggleMobile" aria-current="page">Home</NuxtLink>
@@ -75,6 +75,14 @@
                 </li>
                 <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/contact-us')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
                     <NuxtLink to="/contact-us" @click="toggleMobile">Contact</NuxtLink>
+                </li>
+                <li @click="toggleMobile" v-if="$route.path !== '/manage-bookings' && $route.path !== '/book-rehearsal'"  type="button" class="text-black block bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
+                    <NuxtLink to="/login">
+                        Book rehearsal space
+                    </NuxtLink>
+                </li>
+                <li @click="mobileLogout" v-if="$route.path === '/manage-bookings' || $route.path === '/book-rehearsal'"  type="button" class="text-black block bg-yellow-400 hover:bg-yellow-500 focus:ring-2 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-2.5">
+                    Logout
                 </li>
             </ul>
         </div>
@@ -94,6 +102,12 @@ export default {
             this.showDropdown = !this.showDropdown;
         },
         logout() {
+            localStorage.removeItem('token')
+            localStorage.removeItem('varchar')
+            this.$router.replace('/login')
+        },
+        mobileLogout() {
+            this.toggleMobile()
             localStorage.removeItem('token')
             localStorage.removeItem('varchar')
             this.$router.replace('/login')

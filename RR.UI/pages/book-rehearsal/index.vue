@@ -1,19 +1,19 @@
 <template>
-    <div class="max-w-7xl mx-auto">
-        <h1 class="text-5xl mt-16 mb-10 font-medium">Select available slot</h1>
+    <div class="max-w-7xl mx-auto px-4 md:px-0">
+        <h1 class="text-4xl md:text-5xl mt-28 mb-10 font-medium">Select available slot</h1>
 
-        <div class="flex justify-between gap-x-5 items-center">
-            <div class="w-1/3 min-h-24">
+        <div class="flex flex-col md:flex-row justify-between gap-x-5 items-center">
+            <div class="w-full md:w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Band or Artist name</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.artist" placeholder="Band Of Neo" required>
                 <small v-if="showBandValidationError" class="text-red-500">Band or artist name is required</small>
             </div>
-            <div class="w-1/3 min-h-24">
+            <div class="w-full md:w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Contact number</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.phoneNumber" placeholder="0721235698" required>
                 <small v-if="showContactNumberValidationError" class="text-red-500">Contact number is required</small>
             </div>
-            <div class="w-1/3 min-h-24">
+            <div class="w-full md:w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Rehearsal date</label>
                 <!-- <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="select date" required> -->
                 <VueDatePicker v-model="date" :enable-time-picker="false"></VueDatePicker>
@@ -21,15 +21,15 @@
             </div>
         </div>
 
-        <div class="flex justify-between items-start gap-10 mt-10">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-10 mt-6 md:mt-10">
             
             <!-- slots  -->
-            <div class="w-2/3" v-if="date">
+            <div class="w-full md:w-2/3" v-if="date">
                 <h1 class="font-medium text-4xl mb-2">{{ formattedDateObj.day }} {{ formattedDateObj.selectedMonthName }}</h1>
                 <h6 class="font-light text-4xl mb-10">{{ formattedDateObj.dayOfWeek }}</h6>
 
                 <p v-if="slotsValidationError" class="text-red-500 mb-3">Selecting a slot is required</p>
-                <div class="grid grid-cols-3  gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div v-for="slot in slots"
                      :key="slot.id"
                      @click="toggleSlot(slot, slotSelected)"
@@ -57,7 +57,7 @@
             </div>
 
             <!-- price  -->
-            <div v-if="showPrice" class="p-5 border border-slate-200 rounded-md w-1/3" >
+            <div v-if="showPrice" class="p-5 border border-slate-200 rounded-md w-full md:w-1/3" >
                 <h1 class="font-medium text-3xl">R {{total}}</h1>
                 <p class="mt-5 mb-16 font-light text-slate-500">
                     Our slots are two(2) hour slots
@@ -83,7 +83,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
                         <h3 class="mb-5 text-lg font-normal text-gray-5000">Rehearsal space successfully booked!</h3>
-                        <button id="activeBookingsButton" type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                        <button id="activeBookingsButton" type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2 mb-5 md:mb-0">
                             See active bookings
                         </button>
                         <button id="closeButton" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10">Take me to homepage</button>

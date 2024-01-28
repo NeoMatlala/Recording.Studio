@@ -1,14 +1,14 @@
 <template>
     <div class="flex justify-center items-center">
-        <div class="max-w-7xl w-full mx-auto">
+        <div class="max-w-7xl w-full mx-auto px-4 md:px-0 mt-16">
 
             <div v-if="!showBookingMenu">
-                <div class="flex mt-8 justify-between items-center">
+                <div class="flex flex-col-reverse md:flex-row mt-5 md:mt-8 md:justify-between md:items-center gap-y-5 md:gap-y-0">
                     <h1 class="text-4xl font-medium">Active rehearsal bookings</h1>
-                    <NuxtLink to="/book-rehearsal" class="underline">Make new booking</NuxtLink>
+                    <NuxtLink to="/book-rehearsal" class="text-right underline">Make new booking</NuxtLink>
                 </div>
                 
-                <div class="mx-auto flex justify-start items-center gap-5 mt-10">
+                <div class="mx-auto flex flex-col md:flex-row justify-start items-center gap-5 mt-10">
                     <!-- <div v-for="slot in slots" class="bg-slate-100 w-1/2 p-6 ">
                         <h1 class="text-3xl font-medium">{{slot.artist}}</h1>
                         <p class="my-4">R {{ slot.price }}</p>
@@ -45,15 +45,15 @@
             </div>
 
             <div v-if="showBookingMenu">
-                <h1 class="text-7xl text-center font-medium mb-16">Manage bookings</h1>
-                <div class="max-w-2xl mx-auto flex justify-between items-center gap-5">
-                    <NuxtLink to="/book-rehearsal" class="bg-slate-200 hover:bg-slate-300 w-1/2 p-6 h-60 ">
+                <h1 class="text-4xl md:text-7xl text-center font-medium mt-6 md:mt-0 mb-12 md:mb-16">Manage bookings</h1>
+                <div class="max-w-2xl mx-auto flex flex-col md:flex-row justify-between items-center gap-5">
+                    <NuxtLink to="/book-rehearsal" class="bg-slate-200 hover:bg-slate-300 w-full md:w-1/2 p-6 h-60 ">
                         <h1 class="text-3xl font-medium">Book Rehearsal space</h1>
                         <p class="mt-4 font-light text-slate-500">
                             Perfect your performance in our state-of-the-art rehearsal spaces designed to amplify your musical potential.
                         </p>
                     </NuxtLink>
-                    <NuxtLink class="bg-slate-200 hover:bg-slate-300 w-1/2 p-6 h-60 ">
+                    <NuxtLink class="bg-slate-200 hover:bg-slate-300 w-full md:w-1/2 p-6 h-60 ">
                         <h1 class="text-3xl font-medium">Book Recording Equipment</h1>
                         <p class="mt-4 font-light text-slate-500">
                             Elevate your music journey—book recording sessions and achieve sonic perfection through our expert mixing and mastering services.

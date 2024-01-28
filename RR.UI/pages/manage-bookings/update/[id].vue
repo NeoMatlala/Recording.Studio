@@ -1,29 +1,29 @@
 <template>
-    <div class="max-w-7xl mx-auto">
-        <h1 class="text-5xl mt-16 mb-10 font-medium">Update booking</h1>
+    <div class="max-w-7xl mx-auto px-4 md:px-0">
+        <h1 class="text-4xl md:text-5xl mt-28 mb-10 font-medium">Update booking</h1>
 
-        <div class="flex justify-between gap-5 items-center">
-            <div class="w-1/3">
+        <div class="flex flex-col md:flex-row justify-between gap-5 items-center">
+            <div class="w-full md:w-1/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Band or Artist name</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.artist" placeholder="Band Of Neo" required>
             </div>
-            <div class="w-1/3">
+            <div class="w-full md:w-1/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Contact number</label>
                 <input type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" v-model="booking.phoneNumber" placeholder="0721235698" required>
             </div>
-            <div class="w-1/3">
+            <div class="w-full md:w-1/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Rehearsal date</label>
                 <!-- <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="select date" required> -->
                 <VueDatePicker v-model="booking.date" :enable-time-picker="false"></VueDatePicker>
             </div>
         </div>
 
-        <div class="flex justify-between items-start gap-10 mt-16">
-            <div class="w-2/3">
+        <div class="flex flex-col md:flex-row justify-between items-start gap-10 mt-16">
+            <div class="w-full md:w-2/3">
                 <h1 class="font-medium text-4xl mb-2">02 Jan</h1>
                 <h6 class="font-light text-4xl mb-10">Tuesday</h6>
 
-                <div class="grid grid-cols-3  gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-3  gap-4">
                     <div v-for="slot in slots"
                      :key="slot.id"
                      @click="toggleSlot(slot, slotSelected)"
@@ -47,7 +47,7 @@
             </div>
 
             <!-- price  -->
-            <div class="p-5 border border-slate-200 rounded-md w-1/3" >
+            <div class="p-5 border border-slate-200 rounded-md w-full md:w-1/3" >
                 <h1 class="font-medium text-3xl">R {{total}}</h1>
                 <p class="mt-5 mb-16 font-light text-slate-500">
                     Our slots are two(2) hour slots

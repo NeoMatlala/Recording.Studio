@@ -1,50 +1,50 @@
 <template>
-    <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col mt-10 items-center bg-white border border-gray-200 rounded-lg gap-x-10 md:flex-row">
-            <div class="w-1/2">
-                <img class="object-cover w-full rounded-t-lg h-96 md:rounded-none md:rounded-s-lg" src="../../../assets/img/view-booking-img.jpg" alt="">
+    <div class="max-w-7xl mx-auto px-4 md:px-0">
+        <div class="flex flex-col mt-28 items-center bg-white border border-gray-200 rounded-lg gap-x-10 md:flex-row">
+            <div class="w-full md:w-1/2">
+                <img class="object-cover w-full rounded-t-lg h-44 md:h-96 md:rounded-none md:rounded-s-lg" src="../../../assets/img/view-booking-img.jpg" alt="">
             </div>
-            <div class="relative overflow-x-auto w-1/2">
-                <h5 class="px-5 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Booking info</h5>
+            <div class="relative overflow-x-auto w-full mt-5 md:mt-0 md:w-1/2">
+                <h5 class="md:px-5 px-2 mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Booking info</h5>
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 ">
                     <tbody>
                         <tr class="border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-3 md:px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 Artist
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-3 md:px-6 py-4">
                                 {{booking.artist}}
                             </td>
                         </tr>
                         <tr class="border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-3 md:px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 Date of Rehearsal
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-3 md:px-6 py-4">
                                 {{booking.date}}
                             </td>
                         </tr>
                         <tr class="border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-3 md:px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 Phone Number
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-3 md:px-6 py-4">
                                 {{booking.phoneNumber}}
                             </td>
                         </tr>
                         <tr class="border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-3 md:px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 Costs
                             </th>
-                            <td class="px-6 py-4">
+                            <td class="px-3 md:px-6 py-4">
                                 R {{booking.price}}
                             </td>
                         </tr>
                         <tr class="border-b">
-                            <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
+                            <th scope="row" class="px-3 md:px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                 Rehearsal Slots
                             </th>
-                            <td class="px-6 flex justify-start items-center gap-3 py-4">
+                            <td class="px-3 md:px-6 flex flex-col md:flex-row justify-start items-center gap-3 py-4">
                                 <div class="bg-blue-100 text-blue-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400" v-for="slot in slotNames">
                                     {{ slot }}
                                 </div>
