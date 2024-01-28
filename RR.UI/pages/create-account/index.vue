@@ -1,7 +1,7 @@
 <template>
-    <div class="flex justify-center items-center">
-        <div class="max-w-7xl mx-auto w-2/3">
-            <h1 class="text-center text-7xl mb-12 mt-4 font-medium">Create Account</h1>
+    <div class="flex justify-center items-center px-4 md:px-0">
+        <div class="max-w-7xl mx-auto w-full md:w-2/3">
+            <h1 class="text-center text-4xl md:text-7xl mb-10 md:mb-12 mt-20 md:mt-4 font-medium">Create Account</h1>
 
             <!-- password error -->
             <div v-if="showPasswordError" class="flex max-w-lg mx-auto items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">
@@ -97,7 +97,7 @@
 
             </form>
             <p class="text-center text-slate-500 font-light mt-5">Already have an account? 
-                <NuxtLink to="/login" class="hover:underline">Login</NuxtLink>
+                <NuxtLink to="/login" class="underline underline-offset-2 md:no-underline md:hover:underline">Login</NuxtLink>
             </p>
         </div>
 
