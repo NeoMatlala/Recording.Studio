@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center px-4 md:px-0">
         <div class="max-w-7xl mx-auto w-full md:w-2/3">
-            <h1 class="text-center text-4xl md:text-7xl mb-10 md:mb-12 mt-20 md:mt-4 font-medium">Create Account</h1>
+            <h1 class="text-center text-4xl md:text-7xl mb-10 md:mb-12 mt-20 font-medium">Create Account</h1>
 
             <!-- password error -->
             <div v-if="showPasswordError" class="flex max-w-lg mx-auto items-start p-4 mb-4 text-sm text-red-800 border border-red-300 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400 dark:border-red-800" role="alert">

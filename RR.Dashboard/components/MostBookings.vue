@@ -1,10 +1,10 @@
 <template>
     <div>
         <div class="mt-10">
-            <div v-for="entry in sortedEmailCounts" :key="entry[0]">
+            <div v-for="entry in sortedEmailCountsWithImgUrl" :key="entry[0]">
                 <div class="flex justify-between items-center">
                     <div class="w-3/4 flex justify-start items-center gap-x-3">
-                        <img class="w-8 h-8 rounded-full" src="https://flowbite.com/application-ui/demo/images/users/neil-sims.png" alt="">
+                        <img class="w-8 h-8 rounded-full" :src="entry[2]" alt="">
                         <p class="text-slate-500">{{ entry[0] }}</p>
                     </div>
                     <div class="w-1/4 flex justify-end">
@@ -26,6 +26,7 @@ export default{
             bookings: [],
             userNames: [],
             sortedEmailCounts: [],
+            sortedEmailCountsWithImgUrl: []
         }
     },
     mounted(){
@@ -60,9 +61,16 @@ export default{
 
             emailCountsArray.sort((a, b) => b[1] - a[1]);
 
-            console.log(emailCountsArray);
-
             this.sortedEmailCounts = emailCountsArray
+
+            this.sortedEmailCountsWithImgUrl = this.sortedEmailCounts.map(user => {
+                var randomNumber = Math.floor(Math.random() * (999 - 100 + 1)) + 100
+                var imageUrl = `https://ozgrozer.github.io/100k-faces/0/0/000${randomNumber}.jpg`
+
+                return [...user, imageUrl]
+            })
+
+            //console.log(this.sortedEmailCountsWithImgUrl);
         }
     }
 }
