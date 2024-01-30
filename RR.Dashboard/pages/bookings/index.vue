@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="booking in bookings" :key="booking.bookingId">
+                            <tr class="odd:bg-white even:bg-gray-50 border-b" v-for="booking in bookingsWithModifiedDate" :key="booking.bookingId">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
                                     {{booking.artist}}
                                 </th>
@@ -51,7 +51,8 @@ import authMiddleware from '~/middleware/auth'
 export default{
     data() {
         return {
-            bookings: []
+            bookings: [],
+            bookingsWithModifiedDate: []
         }
         
     },
@@ -81,6 +82,20 @@ export default{
             } catch(error) {
                 console.log("Error getting bookings: ", error.message)
             }
+
+            // this.bookings.forEach(booking => {
+            //     const indexOfT =  booking.date.indexOf('T')
+            //     const newDate = booking.date.slice(0, indexOfT)
+            //     console.log(`${booking.date}: ${newDate}`)
+            // })
+
+            this.bookingsWithModifiedDate = this.bookings.map(booking => {
+                const newDate = booking.date.slice(0, 10)
+
+                return {...booking, date: newDate}
+            })
+
+            console.log(this.bookingsWithModifiedDate)
         }
     }
 }
