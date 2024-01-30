@@ -1,6 +1,9 @@
 <template>
     <div class="max-w-7xl mx-auto px-4 md:px-0">
-        <h1 class="text-4xl md:text-5xl mt-28 mb-10 font-medium">Update booking</h1>
+        <div class="mt-28 mb-10">
+            <NuxtLink @click="previousPage" class="mb-10 text-sm hover:text-base cursor-pointer underline underline-offset-1">Back</NuxtLink>
+            <h1 class="text-4xl md:text-5xl mt-10 font-medium">Update booking</h1>
+        </div>
 
         <div class="flex flex-col md:flex-row justify-between gap-5 items-center">
             <div class="w-full md:w-1/3">
@@ -53,7 +56,7 @@
                     Our slots are two(2) hour slots
                 </p>
 
-                <button type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="updateRehearsal">Book</button>
+                <button type="submit" class="text-black bg-yellow-300 hover:bg-yellow-400 focus:ring-2 focus:outline-none focus:ring-yellow-400 font-medium rounded-lg text-base w-full  px-5 py-2.5 mt-5 text-center" @click="updateRehearsal">Update Booking</button>
 
                 <hr class="my-6 border-gray-200 sm:mx-auto lg:my-8" />
 
@@ -113,10 +116,6 @@ export default{
             format
         }
     },
-    // created() {
-    //     this.getBooking()
-    //     this.fetchSlots()
-    // },
     mounted() {
         Promise.all([this.fetchSlots(), this.getBooking()]).then(() => {
             //const preSelectedSlotIds = [5, 6];
@@ -233,6 +232,9 @@ export default{
 
             //console.log(this.booking)
         },
+        previousPage(){
+            this.$router.go(-1)
+        }
     }
 }
 </script>

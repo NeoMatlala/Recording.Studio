@@ -1,6 +1,9 @@
 <template>
     <div class="max-w-7xl mx-auto px-4 md:px-0">
-        <div class="flex flex-col mt-28 items-center bg-white border border-gray-200 rounded-lg gap-x-10 md:flex-row">
+        <div class="mt-32 mb-10">
+            <NuxtLink @click="previousPage" class="mb-10 cursor-pointer underline underline-offset-1">Back</NuxtLink>
+        </div>
+        <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg gap-x-10 md:flex-row">
             <div class="w-full md:w-1/2">
                 <img class="object-cover w-full rounded-t-lg h-44 md:h-96 md:rounded-none md:rounded-s-lg" src="../../../assets/img/view-booking-img.jpg" alt="">
             </div>
@@ -90,6 +93,7 @@ export default{
     data() {
         return {
             booking: {},
+            modifiedDate: '',
             bookingSlots: [],
             slotNames: []
         }
@@ -122,11 +126,13 @@ export default{
         async getBooking() {
             try{
                 var response = await axios.get(`https://localhost:7179/api/Bookings/GetBooking/${this.id}`)
-                //console.log(response.data)
                 this.booking = response.data
+                
+                this.booking.date = this.booking.date.slice(0,10)
 
                 this.bookingSlots = this.booking.bookingSlots
                 this.getSlots(this.bookingSlots)
+                
             } catch(error) {
                 console.log("Error getting booking: ", error.message)
             }
@@ -164,6 +170,9 @@ export default{
             } catch (error) {
                 console.log("Error deleting booking:", error.message)
             }
+        },
+        previousPage(){
+            this.$router.go(-1)
         }
     }
 }

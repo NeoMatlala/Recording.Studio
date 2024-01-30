@@ -27,7 +27,7 @@
                         </div>
                     </div> -->
 
-                    <div v-for="slot in slots" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                    <div v-for="slot in slotsWithModifiedDate" class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                         <a>
                             <img class="rounded-t-lg" src="../../assets/img/view-booking-img.jpg" alt="" />
                         </a>
@@ -75,6 +75,7 @@ export default {
     data() {
         return {
             slots: [],
+            slotsWithModifiedDate: [],
             bookingSlots: [],
             slotNames: [],
             showBookingMenu: true
@@ -103,7 +104,6 @@ export default {
 
             try {
                 const response = await axios.get(`https://localhost:7179/api/Bookings/GetBookingsForId/${userId}`)
-                //console.log(response.data)
 
                 this.slots = response.data
 
@@ -111,7 +111,11 @@ export default {
                     this.showBookingMenu = false
                 }
                 
-                //console.log(this.slots)
+                this.slotsWithModifiedDate = this.slots.map(slot =>{
+                    const newDate = slot.date.slice(0, 10)
+
+                    return {...slot, date: newDate}
+                })
 
             } catch (error) {
                 console.log("Could not fetch user's slots: ", error.message)

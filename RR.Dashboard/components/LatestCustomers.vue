@@ -34,19 +34,18 @@ export default{
         async getBookings() {
             try{
                 var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
-
-                for (var i = Math.max(0, response.data.length - 5); i < response.data.length; i++) {
+                
+                for (var i = response.data.length -1; i >= Math.max(0, response.data.length - 5); i--) {
+                    //console.log(response.data[i])
                     this.bookings.push(response.data[i]);
                 }
-
+                
                 this.bookingsWithImg = this.bookings.map(booking => {
                     var randomNumber = Math.floor(Math.random() * (999 - 100 + 1)) + 100
                     var imageUrl = `https://ozgrozer.github.io/100k-faces/0/0/000${randomNumber}.jpg`
 
                     return { ...booking, imageUrl: imageUrl}
                 })
-
-                //console.log(this.bookingsWithImg)
 
             } catch(error) {
                 console.log("Error getting bookings: ", error.message)
