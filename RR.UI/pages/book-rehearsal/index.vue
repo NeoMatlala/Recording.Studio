@@ -16,7 +16,7 @@
             <div class="w-full md:w-1/3 min-h-24">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900">Rehearsal date</label>
                 <!-- <input type="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="select date" required> -->
-                <VueDatePicker v-model="date" :enable-time-picker="false"></VueDatePicker>
+                <VueDatePicker v-model="date" :disabled-dates="disabledDates" :enable-time-picker="false"></VueDatePicker>
                 <small v-if="showDateValidationError" class="text-red-500">Rehearsal date is required</small>
             </div>
         </div>
@@ -166,6 +166,20 @@ export default {
             };
         }
 
+        const disabledDates = computed(() => {
+            const today = new Date()
+            const pastDates = []
+            const numberOfDays = 500
+
+            for(let i = 1; i <= numberOfDays; i++) {
+                const pastDate = new Date(today)
+                pastDate.setDate(today.getDate() - i);
+                pastDates.push(pastDate)
+            }
+
+            return pastDates
+        })
+
         const useUserId = useStateUserId()
 
         onMounted(async () => {
@@ -190,7 +204,8 @@ export default {
             date,
             format,
             formattedDateObj: computed(() => format(date.value)),
-            useUserId
+            useUserId,
+            disabledDates
         }
     },
     created() {
