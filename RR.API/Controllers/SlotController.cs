@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using RR.API.Data;
 using RR.API.Models;
+using RR.API.Services;
 
 namespace RR.API.Controllers
 {
@@ -10,17 +11,19 @@ namespace RR.API.Controllers
     public class SlotController : ControllerBase
     {
         private readonly ApplicationDbContext _db;
+        private ISlotService _slotService;
 
-        public SlotController(ApplicationDbContext db)
+        public SlotController(ApplicationDbContext db, ISlotService slotService)
         {
             _db = db;
+            _slotService = slotService;
         }
 
         // READ
         [HttpGet("GetSlots")]
         public IActionResult GetSlots()
         {
-            var slots = _db.Slots.OrderBy(slot => slot.Name).ToList();
+            var slots = _slotService.GetSlots();
 
             return Ok(slots);
         }
@@ -29,9 +32,9 @@ namespace RR.API.Controllers
         [HttpGet("GetSlot/{id}")]
         public IActionResult GetSlot(int id) 
         {
-            var slot = _db.Slots.Find(id);
+            var slot = _slotService.GetSlot(id);
 
-            if(slot == null)
+            if (slot == null)
             {
                 return NotFound();
             }
