@@ -47,6 +47,7 @@ builder.Services.AddAuthentication(auth =>
 });
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ISlotService, SlotService>();
 
 
 builder.Services.AddControllers();
