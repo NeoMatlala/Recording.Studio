@@ -144,7 +144,11 @@ export default {
             showContactNumberValidationError: false,
             showDateValidationError: false,
             slotsValidationError: false,
-            checkValidationError: false
+            checkValidationError: false,
+            sessionObject: {
+                bookingFee: '',
+                customerId: ''
+            }
         }
         
     },
@@ -280,8 +284,12 @@ export default {
                 this.showLoader = true
 
                 try {
-                    this.booking.price = this.total
-                    var response = await axios.post(`https://localhost:7179/api/Checkout/create-checkout-session/${this.booking.price}`)
+                    this.sessionObject.bookingFee = this.total
+                    this.sessionObject.customerId = localStorage.getItem('varchar')
+
+                    //console.log(this.sessionObject)
+                    //this.booking.price = this.total
+                    var response = await axios.post("https://localhost:7179/api/Checkout/create-checkout-session", this.sessionObject)
 
                     const sessionId = response.data.sessionId
 
@@ -289,6 +297,21 @@ export default {
                     
                 } catch (error) {
                     console.log("Erorr ya stripe:", error.message)
+
+                    if (error.response) {
+                    // The request was made and the server responded with a status code
+                    // that falls out of the range of 2xx
+                    console.log("Server response data:", error.response.data);
+                    // this.errorDisplay = true
+                    // this.errorMessage = error.response.data.message
+                    console.log("Status code:", error.response.status);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.log("No response received from the server");
+                } else {
+                    // Something happened in setting up the request that triggered an Error
+                    console.log("Error:", error.message);
+                }
                 }
             }
         },

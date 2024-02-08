@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using RR.API.DTOs;
+using RR.API.Models;
 using Stripe;
 using System.Drawing;
 
@@ -11,10 +14,12 @@ namespace RR.API.Controllers
     {
 
         private IConfiguration _configuration;
+        private UserManager<IdentityUser> _userManager;
 
-        public CheckoutController(IConfiguration configuration)
+        public CheckoutController(IConfiguration configuration, UserManager<IdentityUser> userManager)
         {
             _configuration = configuration;
+            _userManager = userManager;
         }
 
         [HttpGet("products")]
@@ -29,10 +34,15 @@ namespace RR.API.Controllers
             return Ok(products);
         }
 
-        [HttpPost("create-checkout-session/{bookingFee}")]
-        public IActionResult CreateCheckoutSession(int bookingFee)
+        [HttpPost("create-checkout-session")]
+        public async Task<IActionResult> CreateCheckoutSession([FromBody] CheckoutSessionDTO model)
         {
             StripeConfiguration.ApiKey = _configuration["Stripe:SecretKey"];
+
+            var user = await _userManager.FindByIdAsync(model.CustomerId);
+
+            var email = user.Email;
+            var amount = model.BookingFee * 100;
 
             var options = new Stripe.Checkout.SessionCreateOptions
             {
@@ -51,11 +61,12 @@ namespace RR.API.Controllers
                             {
                                 Name = "Rehearsal Booking"
                             },
-                            UnitAmount = bookingFee * 100
+                            UnitAmount = amount
                         },
                         Quantity = 1
                     }
-                }
+                },
+                CustomerEmail = email
             };
 
             var service = new Stripe.Checkout.SessionService();
