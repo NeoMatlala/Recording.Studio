@@ -55,7 +55,7 @@ export default{
     methods: {
         async createSlot() {
             try {
-                const response = await axios.post(`https://localhost:7179/api/Slot/CreateSlot`, this.slot)
+                const response = await axios.post(`https://localhost:7179/api/Slot/create-slot`, this.slot)
                 console.log(response.data)
                 this.$router.replace('/slots');
             } catch (error) {

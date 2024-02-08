@@ -247,7 +247,7 @@ export default{
     methods: {
         async getSlotCount() {
             try {
-                const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                const response = await axios.get("https://localhost:7179/api/Slot/get-slots")
                 this.slotCount = response.data.length
                 this.slots = response.data
             } catch (error) {
@@ -256,7 +256,7 @@ export default{
         },
         async getBookingCount() {
             try {
-                const response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
+                const response = await axios.get("https://localhost:7179/api/Bookings/get-all-bookings")
                 this.bookingCount = response.data.length
             } catch (error) {
                 console.log("Can not get slot count:", error.message)
@@ -264,7 +264,7 @@ export default{
         },
         async getPayments(){
             try {
-                const response = await axios.get("https://localhost:7179/api/Payment/GetPayments")
+                const response = await axios.get("https://localhost:7179/api/Payment/get-payments")
                 this.payments = response.data.reverse()
             } catch (error) {
                 console.log("Can not get payments:", error.message)

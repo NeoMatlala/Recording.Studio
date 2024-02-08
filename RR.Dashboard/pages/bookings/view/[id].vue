@@ -107,7 +107,7 @@ export default{
     methods: {
         async getBooking() {
             try{
-                var response = await axios.get(`https://localhost:7179/api/Bookings/GetBooking/${this.id}`)
+                var response = await axios.get(`https://localhost:7179/api/Bookings/get-booking/${this.id}`)
                 //console.log(response.data)
                 this.booking = response.data
 
@@ -122,7 +122,7 @@ export default{
                 //console.log(slot.slotId)
 
                 try {
-                    const response = await axios.get(`https://localhost:7179/api/Slot/GetSlot/${slot.slotId}`)
+                    const response = await axios.get(`https://localhost:7179/api/Slot/get-slot/${slot.slotId}`)
                     //console.log(response.data)
                     this.slotNames.push(response.data.time)
 

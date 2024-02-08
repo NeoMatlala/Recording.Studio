@@ -19,7 +19,7 @@ namespace RR.API.Controllers
         }
 
         // READ
-        [HttpGet("GetAllUsers")]
+        [HttpGet("get-all-users")]
         public IActionResult GetAllUsers()
         {
             var users = _userManager.Users.Select(user => new

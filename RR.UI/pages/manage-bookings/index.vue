@@ -103,7 +103,7 @@ export default {
             const userId = localStorage.getItem('varchar')
 
             try {
-                const response = await axios.get(`https://localhost:7179/api/Bookings/GetBookingsForId/${userId}`)
+                const response = await axios.get(`https://localhost:7179/api/Bookings/get-bookings-for-Id/${userId}`)
 
                 this.slots = response.data
 

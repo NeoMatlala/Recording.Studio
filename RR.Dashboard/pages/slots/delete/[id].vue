@@ -91,7 +91,7 @@ export default{
     methods : {
         async fetchSlot() {
             try {
-                const response = await axios.get(`https://localhost:7179/api/Slot/GetSlot/${this.id}`)
+                const response = await axios.get(`https://localhost:7179/api/Slot/get-slot/${this.id}`)
                 //console.log(response.data)
                 this.slot = response.data
 
@@ -107,7 +107,7 @@ export default{
             }
 
             try {
-                const response = await axios.delete(`https://localhost:7179/api/Slot/DeleteSlot/${this.id}`)
+                const response = await axios.delete(`https://localhost:7179/api/Slot/delete-slot/${this.id}`)
                 console.log(response.data)
 
                 if ($modalElement) {

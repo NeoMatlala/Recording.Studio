@@ -19,7 +19,7 @@ namespace RR.API.Controllers
         }
 
         // READ
-        [HttpGet("GetAllBookings")]
+        [HttpGet("get-all-bookings")]
         public IActionResult GetBookings()
         {
             // query to include booking, users slot, bookingslot
@@ -47,7 +47,7 @@ namespace RR.API.Controllers
         }
 
         // READ single booking
-        [HttpGet("GetBooking/{id}")]
+        [HttpGet("get-booking/{id}")]
         public IActionResult GetBooking(int id)
         {
             if(id == 0 || id == null)
@@ -83,7 +83,7 @@ namespace RR.API.Controllers
         }
 
         // UPDATE booking
-        [HttpPost("UpdateBooking/{id}")]
+        [HttpPost("update-booking/{id}")]
         public IActionResult UpdateBooking(int id, [FromBody] BookingWithSlotsModel model)
         {
             if (!ModelState.IsValid)
@@ -128,7 +128,7 @@ namespace RR.API.Controllers
         }
 
         // get bookings associated with a user
-        [HttpGet("GetBookingsForId/{id}")]
+        [HttpGet("get-bookings-for-Id/{id}")]
         public IActionResult GetBookingsForId(string id)
         {
             var bookingsList = _db.Bookings.Include(bs => bs.BookingSlots).ThenInclude(s => s.Slot).Where(b => b.UserId == id).ToList();
@@ -151,7 +151,7 @@ namespace RR.API.Controllers
         }
 
         // DELETE
-        [HttpDelete("DeleteBooking/{id}")]
+        [HttpDelete("delete-booking/{id}")]
         public IActionResult DeleteBooking(int id)
         {
             if (id == 0 || id == null)
@@ -174,7 +174,7 @@ namespace RR.API.Controllers
 
 
         // CREATE
-        [HttpPost("CreateBooking")]
+        [HttpPost("create-booking")]
         public IActionResult CreateBooking([FromBody] BookingWithSlotsModel model)
         {
             if (!ModelState.IsValid)

@@ -335,7 +335,7 @@ export default {
         },
         async fetchSlots() {
             try {
-                const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                const response = await axios.get("https://localhost:7179/api/Slot/get-slots")
                 this.slots = response.data
 
             } catch (error) {
@@ -363,7 +363,7 @@ export default {
                 //console.log(this.booking)
 
                 try{
-                    const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", this.booking)
+                    const response = await axios.post("https://localhost:7179/api/Bookings/create-booking", this.booking)
                     console.log(response.data)
 
                     const $modalElement = document.querySelector('#popup-modal');

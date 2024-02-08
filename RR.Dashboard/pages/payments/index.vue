@@ -64,7 +64,7 @@ export default{
     methods: {
         async getPayments(){
             try {
-                const response = await axios.get("https://localhost:7179/api/Payment/GetPayments")
+                const response = await axios.get("https://localhost:7179/api/Payment/get-payments")
                 this.payments = response.data.reverse()
             } catch (error) {
                 console.log("Can not get payments:", error.message)

@@ -133,7 +133,7 @@ export default{
     methods: {
         async getBooking() {
             try{
-                var response = await axios.get(`https://localhost:7179/api/Bookings/GetBooking/${this.id}`)
+                var response = await axios.get(`https://localhost:7179/api/Bookings/get-booking/${this.id}`)
                 //console.log(response.data)
                 this.booking = response.data
 
@@ -147,7 +147,7 @@ export default{
         },
         async fetchSlots() {
             try {
-                const response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                const response = await axios.get("https://localhost:7179/api/Slot/get-slots")
                 //console.log(response.data)
                 this.slots = response.data
 
@@ -206,7 +206,7 @@ export default{
             //console.log(this.updatedBooking)
 
             try{
-                const response = await axios.post(`https://localhost:7179/api/Bookings/UpdateBooking/${this.booking.bookingId}`, this.updatedBooking)
+                const response = await axios.post(`https://localhost:7179/api/Bookings/update-booking/${this.booking.bookingId}`, this.updatedBooking)
                 console.log(response.data)
                 this.$router.replace(`/manage-bookings/view/${this.booking.bookingId}`)
             } catch (error) {

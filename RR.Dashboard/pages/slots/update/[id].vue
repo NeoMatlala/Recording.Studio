@@ -63,7 +63,7 @@ export default{
     methods : {
         async fetchSlot() {
             try {
-                const response = await axios.get(`https://localhost:7179/api/Slot/GetSlot/${this.id}`)
+                const response = await axios.get(`https://localhost:7179/api/Slot/get-slot/${this.id}`)
                 //console.log(response.data)
                 this.slot = response.data
 
@@ -73,7 +73,7 @@ export default{
         },
         async updateSlot() {
             try {
-                const response = await axios.post(`https://localhost:7179/api/Slot/UpdateSlot/${this.id}`, this.slot)
+                const response = await axios.post(`https://localhost:7179/api/Slot/update-slot/${this.id}`, this.slot)
                 //console.log(response.data)
                 this.$router.replace('/slots');
             } catch (error) {

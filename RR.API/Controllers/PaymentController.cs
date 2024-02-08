@@ -20,7 +20,7 @@ namespace RR.API.Controllers
         }
 
         // READ
-        [HttpGet("GetPayments")]
+        [HttpGet("get-payments")]
         public IActionResult GetPayments()
         {
             var payments = _db.Payments.Include(b => b.User).Include(ps => ps.PaymentSlots).ThenInclude(s => s.Slot);
