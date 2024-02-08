@@ -175,7 +175,7 @@ export default{
                 this.showPasswordMismatchError = true
             } else {
                 try {
-                    const response = await axios.post("https://localhost:7179/api/Auth/Register", this.user)
+                    const response = await axios.post("https://localhost:7179/api/Auth/register", this.user)
                     console.log(response.data)
 
                     if(response.data.isSuccess) {

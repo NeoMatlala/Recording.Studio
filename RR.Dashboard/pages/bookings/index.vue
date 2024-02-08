@@ -76,7 +76,7 @@ export default{
         async getBookings() {
             try{
                 //var response = await axios.get(`${this.baseApi}/api/Employee`);
-                var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
+                var response = await axios.get("https://localhost:7179/api/Bookings/get-all-bookings")
                 //console.log(response.data)
                 this.bookings = response.data
             } catch(error) {

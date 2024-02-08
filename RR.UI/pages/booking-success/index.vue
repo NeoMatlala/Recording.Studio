@@ -25,7 +25,7 @@ export default {
 
         // create booking record api call
         try {
-            const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", parsedBooking)
+            const response = await axios.post("https://localhost:7179/api/Bookings/create-booking", parsedBooking)
             console.log(response.data)
         } catch (error) {
             if (error.response) {

@@ -35,7 +35,7 @@ export default{
     methods: {
         async getBookings() {
             try{
-                var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
+                var response = await axios.get("https://localhost:7179/api/Bookings/get-all-bookings")
 
                 this.bookings = response.data
                 

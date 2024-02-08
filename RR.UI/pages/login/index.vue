@@ -95,7 +95,7 @@ export default{
         async loginUser() {
             this.showLoader = true
             try {
-                const response = await axios.post("https://localhost:7179/api/Auth/Login", this.user)
+                const response = await axios.post("https://localhost:7179/api/Auth/login", this.user)
 
                 const userId = response.data.userId
                 const selectedId = useStateUserId()

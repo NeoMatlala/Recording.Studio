@@ -33,7 +33,7 @@ export default{
     methods: {
         async getBookings() {
             try{
-                var response = await axios.get("https://localhost:7179/api/Bookings/GetAllBookings")
+                var response = await axios.get("https://localhost:7179/api/Bookings/get-all-bookings")
                 
                 for (var i = response.data.length -1; i >= Math.max(0, response.data.length - 5); i--) {
                     //console.log(response.data[i])

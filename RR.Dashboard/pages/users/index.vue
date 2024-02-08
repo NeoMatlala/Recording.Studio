@@ -43,7 +43,7 @@ export default{
     methods: {
         async getUsers() {
             try {
-                var response = await axios.get("https://localhost:7179/api/Users/GetAllUsers")
+                var response = await axios.get("https://localhost:7179/api/Users/get-all-users")
                 this.users = response.data
             } catch (error) {
                 console.log("Error getting users", error.message)

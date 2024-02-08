@@ -20,7 +20,7 @@ namespace RR.API.Controllers
         }
 
         // READ
-        [HttpGet("GetSlots")]
+        [HttpGet("get-slots")]
         public IActionResult GetSlots()
         {
             var slots = _slotService.GetSlots();
@@ -29,7 +29,7 @@ namespace RR.API.Controllers
         }
 
         // READ single slot
-        [HttpGet("GetSlot/{id}")]
+        [HttpGet("get-slot/{id}")]
         public IActionResult GetSlot(int id) 
         {
             var slot = _slotService.GetSlot(id);
@@ -43,7 +43,7 @@ namespace RR.API.Controllers
         }
 
         // CREATE
-        [HttpPost("CreateSlot")]
+        [HttpPost("create-slot")]
         public IActionResult CreateSlot([FromBody] Slot model)
         {
             if (ModelState.IsValid) 
@@ -66,7 +66,7 @@ namespace RR.API.Controllers
         }
 
         // Update
-        [HttpPost("UpdateSlot/{id}")]
+        [HttpPost("update-slot/{id}")]
         public IActionResult UpdateSlot(int id, [FromBody] Slot model)
         {
             if (ModelState.IsValid)
@@ -91,7 +91,7 @@ namespace RR.API.Controllers
         }
 
         // DELETE
-        [HttpDelete("DeleteSlot/{id}")]
+        [HttpDelete("delete-slot/{id}")]
         public IActionResult DeleteSlot(int id)
         {
             if (id == null || id == 0)

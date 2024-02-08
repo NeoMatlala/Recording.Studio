@@ -99,7 +99,7 @@ export default{
         async loginUser(user) {
             this.showLoader = true
             try {
-                const response = await axios.post("https://localhost:7179/api/Auth/Login", user)
+                const response = await axios.post("https://localhost:7179/api/Auth/login", user)
 
                 console.log(response.data)
 

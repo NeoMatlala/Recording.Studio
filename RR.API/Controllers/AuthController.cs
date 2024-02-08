@@ -17,7 +17,7 @@ namespace RR.API.Controllers
         }
 
         // register
-        [HttpPost("Register")]
+        [HttpPost("register")]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterViewModel model)
         {
             if(ModelState.IsValid)
@@ -36,7 +36,7 @@ namespace RR.API.Controllers
         }
 
         // login
-        [HttpPost("Login")]
+        [HttpPost("login")]
         public async Task<IActionResult> LoginAsync([FromBody] LoginViewModel model)
         {
             if (ModelState.IsValid)

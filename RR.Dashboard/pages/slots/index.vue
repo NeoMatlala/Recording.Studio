@@ -80,7 +80,7 @@ export default{
         async getSlots() {
             try{
                 //var response = await axios.get(`${this.baseApi}/api/Employee`);
-                var response = await axios.get("https://localhost:7179/api/Slot/GetSlots")
+                var response = await axios.get("https://localhost:7179/api/Slot/get-slots")
                 //console.log(response.data)
                 this.slots = response.data
             } catch(error) {
