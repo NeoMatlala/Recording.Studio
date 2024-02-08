@@ -130,6 +130,12 @@ export default {
                 price: '',
                 slotIds: []
             },
+            payment:{
+                userId: '',
+                amount: '',
+                date: '',
+                slotIds: []
+            },
             acceptTsCs: false,
             total: 0,
             showPrice: false,
@@ -231,6 +237,7 @@ export default {
         })
 
         localStorage.removeItem('bookingObject')
+        localStorage.removeItem('paymentObject')
         
     },
     methods: {
@@ -293,13 +300,26 @@ export default {
             // this.booking.userId = localStorage.getItem('varchar')
             // this.booking.price = this.total
 
+            
+
             try {
                 const correctDateFormat = this.format(this.date);
                 this.booking.date = correctDateFormat.formattedDate
                 this.booking.userId = localStorage.getItem('varchar')
                 this.booking.price = this.total
 
+                // payment object
+                this.payment.userId = this.booking.userId
+                this.payment.amount = this.booking.price
+                this.payment.date = correctDateFormat.formattedDate
+                this.payment.slotIds = this.booking.slotIds
+
+                //console.log(this.payment)
+
+                
+
                 localStorage.setItem('bookingObject', JSON.stringify(this.booking))
+                localStorage.setItem('paymentObject', JSON.stringify(this.payment))
 
                 const { error } = await stripe.redirectToCheckout({
                     sessionId: sessionId
@@ -309,9 +329,9 @@ export default {
                     console.error('Error redirecting to checkout:', error)
                 }
                     
-                } catch (err) {
-                    console.log("Erorr redirecting to Stripe checkout:", err)
-                }
+            } catch (err) {
+                console.log("Erorr redirecting to Stripe checkout:", err)
+            }
         },
         async fetchSlots() {
             try {

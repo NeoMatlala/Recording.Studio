@@ -1,7 +1,7 @@
 <template>
     <div class="w-full">
         <div class="mt-5 max-w-[95%] mx-auto">
-            <h1 class="text-3xl text-slate-800 font-medium mb-10">Booking  #{{ booking.bookingId }} </h1>
+            <h1 class="text-3xl text-slate-800 font-medium mb-10">Payment #{{ payment.paymentId }}</h1>
 
             <div class="block p-3 bg-white border shadow-sm border-slate-300 rounded-lg">
                 <div class="relative overflow-x-auto">
@@ -10,49 +10,34 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3"></th>
                                 <th scope="col" class="px-6 py-3">
-                                    Client Information
+                                    Payment Information
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr class="odd:bg-white even:bg-gray-50 border-b">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Booked By
+                                    Paid By
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{booking.userName}}
+                                    {{payment.userName}}
                                 </td>
                             </tr>
                             <tr class="odd:bg-white even:bg-gray-50 border-b">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Artist
+                                    Payment Date
                                 </th>
                                 <td class="px-6 py-4">
-                                    {{booking.artist}}
+                                    {{payment.date}}
                                 </td>
                             </tr>
                             <tr class="odd:bg-white even:bg-gray-50 border-b">
                                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Date of Rehearsal
+                                    Amount
                                 </th>
-                                <td class="px-6 py-4">
-                                    {{booking.date}}
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-white even:bg-gray-50 border-b">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Phone Number
-                                </th>
-                                <td class="px-6 py-4">
-                                    {{booking.phoneNumber}}
-                                </td>
-                            </tr>
-                            <tr class="odd:bg-white even:bg-gray-50 border-b">
-                                <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap">
-                                    Cost to Client
-                                </th>
-                                <td class="px-6 py-4">
-                                    R {{booking.price}}
+                                <td class="px-6 py-4 flex items-center justify-start gap-x-3">
+                                    R {{payment.amount}}
+                                    <span class="bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded">Completed</span>
                                 </td>
                             </tr>
                             <tr class="odd:bg-white even:bg-gray-50 border-b">
@@ -69,6 +54,7 @@
                     </table>
                 </div>
             </div>
+
         </div>
     </div>
 </template>
@@ -77,12 +63,11 @@
 import axios from 'axios';
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
-import authMiddleware from '~/middleware/auth'
 
 export default{
     data() {
         return {
-            booking: {},
+            payment: {},
             bookingSlots: [],
             slotNames: []
         }
@@ -90,34 +75,27 @@ export default{
     setup(){
         const id = ref(useRoute().params.id)
 
-        const setup = () => {
-            definePageMeta({
-                middleware: [authMiddleware]
-            })
-        }
-
         return {
             id,
-            setup
         }
     },
-    created(){
-        this.getBooking()
+    mounted(){
+        this.getPayment()
     },
     methods: {
-        async getBooking() {
-            try{
-                var response = await axios.get(`https://localhost:7179/api/Bookings/GetBooking/${this.id}`)
-                //console.log(response.data)
-                this.booking = response.data
+        async getPayment() {
+            try {
+                var response = await axios.get(`https://localhost:7179/api/Payment/get-payment/${this.id}`)
+                this.payment = response.data
 
-                this.bookingSlots = this.booking.bookingSlots
+                this.bookingSlots = this.payment.paymentSlots
                 this.getSlots(this.bookingSlots)
-            } catch(error) {
-                console.log("Error getting booking: ", error.message)
+                
+            } catch (error) {
+                console.log("Error getting payment: ", error.message)
             }
         },
-         getSlots(slotArray) {
+        getSlots(slotArray) {
             slotArray.forEach(async (slot) => {
                 //console.log(slot.slotId)
 
@@ -130,8 +108,6 @@ export default{
                     console.log("Could not fetch this slot: ", error.message)
                 }
             })
-
-            console.log(this.slotNames)
         }
     }
 }

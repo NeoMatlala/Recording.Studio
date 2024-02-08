@@ -16,11 +16,14 @@ import axios from 'axios'
 export default {
     async mounted() {
         const bookingObject = localStorage.getItem('bookingObject')
+        const paymentObject = localStorage.getItem('paymentObject')
 
         const parsedBooking = bookingObject ? JSON.parse(bookingObject) : null
+        const parsedPayment = bookingObject ? JSON.parse(paymentObject) : null
 
         //console.log(parsedBooking)
 
+        // create booking record api call
         try {
             const response = await axios.post("https://localhost:7179/api/Bookings/CreateBooking", parsedBooking)
             console.log(response.data)
@@ -37,6 +40,24 @@ export default {
                 console.error("Request details:", error.request);
             } else {
                 // Something happened in setting up the request that triggered an Error
+                console.error("Error setting up the request:", error.message);
+            }
+            console.error("Full error object:", error);
+        }
+
+        // create payment record api call
+        try {
+            const response = await axios.post("https://localhost:7179/api/Payment/create-payment", parsedPayment)
+            console.log(response.data)
+        } catch (error) {
+            if (error.response) {
+                console.error("Request failed with status code:", error.response.status);
+                console.error("Response data:", error.response.data);
+                console.error("Headers:", error.response.headers);
+            } else if (error.request) {
+                console.error("No response received. Request made but no response.");
+                console.error("Request details:", error.request);
+            } else {
                 console.error("Error setting up the request:", error.message);
             }
             console.error("Full error object:", error);
