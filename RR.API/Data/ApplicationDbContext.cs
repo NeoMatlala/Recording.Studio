@@ -15,5 +15,8 @@ namespace RR.API.Data
         public DbSet<Slot> Slots { get; set; }
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<BookingSlot> BookingSlots { get; set; }
+
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<PaymentSlot> PaymentSlots { get; set; }
     }
 }
