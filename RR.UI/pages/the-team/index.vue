@@ -3,28 +3,38 @@
         <h1 class="text-4xl md:text-center font-medium mt-10 md:w-2/3 mx-auto mb-5">Meet the team</h1>
         <p class="text-base md:text-center">Elevating Soundscapes with the Industry's Finest – Where Mastery Meets Music</p>
 
-        <div class="mt-10 flex flex-col md:flex-row justify-center gap-8 md:gap-5 items-center">
-            
-            <div class="w-full md:w-1/4">
-                <img src="../../assets/img/team-4.jpg" alt="" class="w-full object-cover h-96">
-                <h4 class="md:mb-1 mt-2 font-medium text-xl">Phumzile Magubane</h4>
-                <h4 class="text-base font-light">Engineer: Radio & TV</h4>
-            </div>
-            <div class="w-full md:w-1/4">
-                <img src="../../assets/img/team-3.jpg" alt="" class="w-full object-cover h-96">
-                <h4 class="md:mb-1 mt-2 font-medium text-xl">Sumarie Simelani</h4>
-                <h4 class="text-base font-light">Engineer: Post Production</h4>
-            </div>
-            <div class="w-full md:w-1/4">
-                <img src="../../assets/img/team-2.jpg" alt="" class="w-full object-cover h-96">
-                <h4 class="md:mb-1 mt-2 font-medium text-xl">Michelle Davis</h4>
-                <h4 class="text-base font-light">Finance</h4>
-            </div>
-            <div class="w-full md:w-1/4">
-                <img src="../../assets/img/team-1.webp" alt="" class="w-full object-cover h-96">
-                <h4 class="md:mb-1 mt-2 font-medium text-xl">Lerato Noko</h4>
-                <h4 class="text-base font-light">Rehearsal Department</h4>
+        <div class="mt-10 flex flex-col md:flex-row justify-start gap-8 md:gap-5 items-start">
+            <div class="w-full md:w-1/4" v-for="member in team">
+                <img :src="`data:image/png;base64,${member.image}`" alt="team member image" class="w-full object-cover h-96">
+                <h4 class="md:mb-1 mt-2 font-medium text-xl">{{member.name}} {{member.surname}}</h4>
+                <h4 class="text-base font-light mb-5">{{member.title}}</h4>
+                <p class="text-sm leading-6 text-gray-500">{{ member.bio }}</p>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default{
+    data() {
+        return{
+            team: []
+        }
+    },
+    mounted() {
+        this.getTeam();
+    },
+    methods:{
+        async getTeam(){
+            try {
+                const response = await axios.get('https://localhost:7179/api/Team/get-team-members')
+                this.team = response.data
+            } catch (error) {
+                console.log(error.message)
+            }
+        }
+    }
+}
+</script>
