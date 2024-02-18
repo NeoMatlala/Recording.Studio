@@ -74,8 +74,8 @@ namespace RR.API.Controllers
         }
 
         // UPDATE
-        [HttpPost("update-team-member/{id}")]
-        public IActionResult UpdateTeamMember(int id, [FromForm] Team teamModel, IFormFile image)
+        [HttpPut("update-team-member/{id}")]
+        public IActionResult UpdateTeamMember(int id, [FromForm] Team teamModel, IFormFile? image)
         {
             if(id == 0 || id == null)
             {
@@ -89,16 +89,39 @@ namespace RR.API.Controllers
                 return NotFound("Member not found");
             }
 
-            member.Name = teamModel.Name;
-            member.Surname = teamModel.Surname;
-            member.Title = teamModel.Title;
-            member.Bio = teamModel.Bio;
+            //member.Name = teamModel.Name;
+            //member.Surname = teamModel.Surname;
+            //member.Title = teamModel.Title;
+            //member.Bio = teamModel.Bio;
 
-            using (MemoryStream stream = new MemoryStream())
+            if (!string.IsNullOrEmpty(teamModel.Name))
             {
-                image.CopyTo(stream);
+                member.Name = teamModel.Name;
+            }
 
-                member.Image = stream.ToArray();
+            if (!string.IsNullOrEmpty(teamModel.Surname))
+            {
+                member.Surname = teamModel.Surname;
+            }
+
+            if (!string.IsNullOrEmpty(teamModel.Title))
+            {
+                member.Title = teamModel.Title;
+            }
+
+            if (!string.IsNullOrEmpty(teamModel.Bio))
+            {
+                member.Bio = teamModel.Bio;
+            }
+
+            if (image != null)
+            {
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    image.CopyTo(stream);
+
+                    member.Image = stream.ToArray();
+                }
             }
 
             _db.Team.Update(member);

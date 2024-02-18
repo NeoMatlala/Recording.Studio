@@ -2,8 +2,6 @@
     <div class="mt-5 max-w-[95%] mx-auto">
         <h1 class="font-medium text-3xl">Add team member</h1>
 
-        
-
         <form class="mt-16" @submit.prevent="createMember">
             <div class="grid gap-10 mb-6 md:grid-cols-2">
                 <div>
