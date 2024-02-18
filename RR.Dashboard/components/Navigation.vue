@@ -33,8 +33,12 @@
                     Users
                 </NuxtLink>
             </li>
-            <li class="hover:bg-gray-100 text-slate-400 p-2 px-8 rounded-lg" :class="{ 'text-white bg-blue-600': $route.path.startsWith('/employees') }">
-                <NuxtLink>Employees</NuxtLink>
+            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/team'), 'bg-slate-200': $route.path.startsWith('/team') }">
+                <NuxtLink to="/team">
+                    <span v-if="$route.path.startsWith('/team')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                    Team
+                </NuxtLink>
             </li>
             <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
                 :class="{ 'text-black bg-blue-600': $route.path.startsWith('/payments'), 'bg-slate-200': $route.path.startsWith('/payments') }">

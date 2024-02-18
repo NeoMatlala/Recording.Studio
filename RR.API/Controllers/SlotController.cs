@@ -47,7 +47,7 @@ namespace RR.API.Controllers
         public IActionResult CreateSlot([FromBody] Slot model)
         {
             if (ModelState.IsValid) 
-            {
+            { 
                 var slot = new Slot
                 {
                     Name = model.Name,
