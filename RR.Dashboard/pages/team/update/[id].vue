@@ -19,6 +19,26 @@
         
 
         <form class="mt-16" @submit.prevent="updateMember">
+            <div class="mb-10">
+                <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
+                <div class="flex items-end justify-start gap-5">
+                    <!-- Display uploaded image -->
+                    <img id="uploadedImage" :src="imageUrl" alt="Uploaded Image" class="w-36 h-36 mb-3 object-cover bg-slate-400 rounded-full shadow-sm">
+                    <!-- <img id="uploadedImage" :src="`data:image/png;base64,${memberObj.image}`" alt="Uploaded Image" class="w-36 h-36 mb-3 object-cover bg-slate-400 rounded-full shadow-sm"> -->
+
+                    <!-- File input with SVG icon -->
+                    <div class="relative">
+                        <input id="fileInput" type="file" accept="image/*" @change="handleImageUpdate" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer">
+
+                        <label for="fileInput" class="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-12.15 12.15a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32L19.513 8.2Z" />
+                            </svg>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
             <div class="grid gap-10 mb-6 md:grid-cols-2">
                 <div>
                     <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
@@ -33,8 +53,8 @@
                     <input type="text" id="company" v-model="memberObj.title" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="200" required>
                 </div>  
                 <div>
-                    <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
-                    <input required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none" @change="handleImageUpload" type="file">
+                    <!-- <label for="company" class="block mb-2 text-sm font-medium text-gray-900">Photo</label>
+                    <input required class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none" @change="handleImageUpload" type="file"> -->
                     <!-- TODO: dynamic image so that when they upload, they can see... even on add page -->
                     <!-- <img :src="`data:image/png;base64,${memberObj.image}`"> -->
                 </div>  
@@ -59,7 +79,14 @@ import { useRoute } from 'vue-router';
 export default{
     data() {
         return {
-            memberObj: {},
+            memberObj: {
+                name: '',
+                surname: '',
+                title: '',
+                bio: '',
+                image: ''
+            },
+            imageUrl: null
         }
     },
     setup(){
@@ -73,17 +100,37 @@ export default{
         this.getMember()
     },
     methods: {
+        handleImageUpdate(event) {
+            const file = event.target.files[0]
+            this.imageUrl = file
+
+            if (file) {
+                const picture = new FileReader();
+                picture.readAsDataURL(event.target.files[0]);
+                picture.addEventListener('load', (event) => {
+                    this.imageUrl = event.target.result;
+                    //this.memberObj.image = event.target.result;
+                    //document.getElementById('uploadedImage').style.display = 'block';
+                });
+            }
+
+            this.memberObj.image = file
+        },
         async getMember() {
             try{
                 var response = await axios.get(`https://localhost:7179/api/Team/get-team-member/${this.id}`)
-                console.log(response.data)
+                //console.log(response.data)
                 this.memberObj = response.data
+
+                const imageData = `data:image/png;base64,${this.memberObj.image}`
+                this.imageUrl = imageData
             } catch(error) {
                 console.log("Error getting slots: ", error.message)
             }
         },
         handleImageUpload(event) {
             const file = event.target.files[0]
+            //this.memberObj.image = file
             this.memberObj.image = file
         },
         async updateMember() {
@@ -93,19 +140,34 @@ export default{
                 formData.append('surname', this.memberObj.surname)
                 formData.append('title', this.memberObj.title)
                 formData.append('bio', this.memberObj.bio)
-                formData.append('image', this.memberObj.image)
 
-                const response = await axios.post(`https://localhost:7179/api/Team/update-team-member/${this.id}`, formData, {
+                if (this.memberObj.image) {
+                    formData.append('image', this.memberObj.image);
+                }
+
+                const response = await axios.put(`https://localhost:7179/api/Team/update-team-member/${this.id}`, formData, {
                     headers: {
                         "Content-Type": 'multipart/form-data'
                     }
                 })
 
-                console.log(response.data)
+                //console.log(response.data)
                 this.$router.replace('/team');
             } catch (error) {
-                console.log(error.message)
+                // Check if the error is a known type, such as a network error or a server error
+                if (error.response) {
+                    // The request was made and the server responded with a status code outside the range of 2xx
+                    console.error("Server responded with an error status:", error.response.status);
+                    console.error("Error details:", error.response.data);
+                } else if (error.request) {
+                    // The request was made but no response was received
+                    console.error("No response received from the server. Request might have timed out.");
+                } else {
+                    // Something happened in setting up the request that triggered an error
+                    console.error("Error setting up the request:", error.message);
+                }
             }
+            
         }
     }
 }
