@@ -21,7 +21,6 @@
                             {{tag.tagName}}
                         </th>
                         <td class="px-6 py-4 space-x-5 font-medium text-gray-900 whitespace-nowrap">
-                            <!-- <NuxtLink to="blogs/view" class="text-blue-600 hover:underline">View</NuxtLink>  -->
                             <NuxtLink :to="`/tags/update/${tag.tagId}`" class="text-blue-600 hover:underline">Update</NuxtLink> 
                             <NuxtLink :to="`/tags/delete/${tag.tagId}`" class="text-red-600 hover:underline">Delete</NuxtLink> 
                         </td>
