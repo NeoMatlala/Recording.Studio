@@ -20,6 +20,13 @@
                 </NuxtLink>
             </li>
             <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/blogs'), 'bg-slate-200': $route.path.startsWith('/blogs') }">
+                <NuxtLink to="/blogs">
+                    <span v-if="$route.path.startsWith('/blogs')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                    Blogs
+                </NuxtLink>
+            </li>
+            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
                 :class="{ 'text-black bg-blue-600': $route.path.startsWith('/slots'), 'bg-slate-200': $route.path.startsWith('/slots') }">
                 <NuxtLink to="/slots">
                     <span v-if="$route.path.startsWith('/slots')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
