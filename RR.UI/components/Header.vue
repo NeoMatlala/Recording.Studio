@@ -21,6 +21,9 @@
                     <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/the-team')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
                         <NuxtLink to="/the-team">Team</NuxtLink>
                     </li>
+                    <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/blog')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
+                        <NuxtLink to="/blog">Blog</NuxtLink>
+                    </li>
                     <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/contact-us')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
                         <NuxtLink to="/contact-us">Contact</NuxtLink>
                     </li>
@@ -72,6 +75,9 @@
                 </li>
                 <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/the-team')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
                     <NuxtLink to="/the-team" @click="toggleMobile">Team</NuxtLink>
+                </li>
+                <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/blog')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
+                    <NuxtLink to="/blog" @click="toggleMobile">Blog</NuxtLink>
                 </li>
                 <li :class="{'text-yellow-600 underline underline-offset-4 decoration-yellow-500': $route.path.startsWith('/contact-us')}" class="cursor-pointer block py-2 px-3 text-gray-900 md:hover:underline md:border-0 md:p-0">
                     <NuxtLink to="/contact-us" @click="toggleMobile">Contact</NuxtLink>
