@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RR.API.Data;
 
@@ -11,9 +12,11 @@ using RR.API.Data;
 namespace RR.API.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240221074936_BlogAndTagsEntities")]
+    partial class BlogAndTagsEntities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -220,60 +223,6 @@ namespace RR.API.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("RR.API.Models.Blog", b =>
-                {
-                    b.Property<int>("BlogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlogId"));
-
-                    b.Property<string>("Body")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("DatePublished")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("image");
-
-                    b.Property<string>("SubTitle")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("BlogId");
-
-                    b.ToTable("Blogs");
-                });
-
-            modelBuilder.Entity("RR.API.Models.BlogTag", b =>
-                {
-                    b.Property<int>("BlogTagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BlogTagId"));
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BlogTagId");
-
-                    b.HasIndex("BlogId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("BlogTags");
-                });
-
             modelBuilder.Entity("RR.API.Models.Booking", b =>
                 {
                     b.Property<int>("BookingId")
@@ -433,23 +382,6 @@ namespace RR.API.Migrations
                     b.ToTable("Slots");
                 });
 
-            modelBuilder.Entity("RR.API.Models.Tag", b =>
-                {
-                    b.Property<int>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TagId"));
-
-                    b.Property<string>("TagName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("TagId");
-
-                    b.ToTable("Tags");
-                });
-
             modelBuilder.Entity("RR.API.Models.Team", b =>
                 {
                     b.Property<int>("TeamId")
@@ -533,25 +465,6 @@ namespace RR.API.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("RR.API.Models.BlogTag", b =>
-                {
-                    b.HasOne("RR.API.Models.Blog", "Blog")
-                        .WithMany("BlogTags")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("RR.API.Models.Tag", "Tag")
-                        .WithMany("BlogTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Blog");
-
-                    b.Navigation("Tag");
-                });
-
             modelBuilder.Entity("RR.API.Models.Booking", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
@@ -612,11 +525,6 @@ namespace RR.API.Migrations
                     b.Navigation("Slot");
                 });
 
-            modelBuilder.Entity("RR.API.Models.Blog", b =>
-                {
-                    b.Navigation("BlogTags");
-                });
-
             modelBuilder.Entity("RR.API.Models.Booking", b =>
                 {
                     b.Navigation("BookingSlots");
@@ -625,11 +533,6 @@ namespace RR.API.Migrations
             modelBuilder.Entity("RR.API.Models.Payment", b =>
                 {
                     b.Navigation("PaymentSlots");
-                });
-
-            modelBuilder.Entity("RR.API.Models.Tag", b =>
-                {
-                    b.Navigation("BlogTags");
                 });
 #pragma warning restore 612, 618
         }

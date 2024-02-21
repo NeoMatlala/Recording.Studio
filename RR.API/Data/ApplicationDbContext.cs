@@ -18,5 +18,8 @@ namespace RR.API.Data
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentSlot> PaymentSlots { get; set; }
         public DbSet<Team> Team { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Tag> Tags { get; set; }
+        public DbSet<BlogTag> BlogTags { get; set; }
     }
 }
