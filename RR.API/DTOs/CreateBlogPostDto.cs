@@ -1,10 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text.Json.Serialization;
 
-namespace RR.API.Models
+namespace RR.API.DTOs
 {
-    public class Blog
+    public class CreateBlogPostDto
     {
         public int BlogId { get; set; }
         public string Title { get; set; }
@@ -14,9 +13,6 @@ namespace RR.API.Models
 
         [Column(TypeName = "image")]
         public byte[]? Image { get; set; }
-
-        [JsonIgnore]
-        public ICollection<BlogTag> BlogTags { get; set; }
-
+        public int[] TagIds { get; set; }
     }
 }
