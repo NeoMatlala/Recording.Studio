@@ -22,20 +22,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+                    <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700" v-for="post in blogs">
                         <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                            The dangers of no practise
+                            {{ post.title}}
                         </th>
                         <td class="px-6 py-4">
-                           Lorem ipsum dolor sit amet consectetur adipisicing elit. Est, numquam?
+                           {{ post.subTitle }}
                         </td>
                         <td class="px-6 py-4">
-                            2024-12-02
+                            {{ post.datePublished }}
                         </td>
                         <td class="px-6 py-4 space-x-5 font-medium text-gray-900 whitespace-nowrap">
-                            <NuxtLink to="blogs/view" class="text-blue-600 hover:underline">View</NuxtLink> 
-                            <!-- <NuxtLink :to="`/team/view/${member.teamId}`" class="text-blue-600 hover:underline">More</NuxtLink>  -->
-                            <NuxtLink to="blogs/delete" class="text-red-600 hover:underline">Delete</NuxtLink> 
+                            <!-- <NuxtLink to="blogs/view" class="text-blue-600 hover:underline">View</NuxtLink>  -->
+                            <NuxtLink :to="`/blogs/update/${post.blogId}`" class="text-blue-600 hover:underline">Update</NuxtLink> 
+                            <NuxtLink :to="`/blogs/delete/${post.blogId}`" class="text-red-600 hover:underline">Delete</NuxtLink> 
                         </td>
                     </tr>
                 </tbody>
@@ -43,3 +43,28 @@
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default{
+    data() {
+        return{
+            blogs: []
+        }
+    },
+    mounted(){
+        this.getBlogs()
+    },
+    methods: {
+        async getBlogs(){
+            try {
+                const response = await axios.get("https://localhost:7179/api/Blog/get-blog-posts")
+                this.blogs = response.data
+            } catch (error) {
+                console.log("Error getting blogs post: ", error.message)
+            }
+        }
+    }
+}
+</script>
