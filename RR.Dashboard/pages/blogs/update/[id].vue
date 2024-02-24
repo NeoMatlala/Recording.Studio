@@ -78,7 +78,7 @@ export default{
             try {
                 const response = await axios.get(`https://localhost:7179/api/Blog/get-blog-post/${this.id}`)
                 this.post = response.data
-                console.log(this.post)
+                //console.log(this.post)
             } catch (error) {
                 console.log("Could not fetch this blog post: ", error.message)
             }

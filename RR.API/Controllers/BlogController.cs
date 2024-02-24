@@ -101,7 +101,7 @@ namespace RR.API.Controllers
             _db.SaveChanges();
 
             // create blogTag now that we have blog ID
-            foreach (var tagId in model.TagIds) 
+            foreach (int tagId in model.TagIds) 
             {
                 var blogTag = new BlogTag
                 {
