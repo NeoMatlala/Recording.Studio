@@ -1,138 +1,138 @@
 <template>
     <div class="max-w-7xl mx-auto mt-28 px-4 md:px-0">
-        <!-- hero -->
-        <div class="flex justify-between gap-5">
-            <!-- LHS -->
-            <div class="w-1/4 flex-1">
-                <!-- <h1 class="text-2xl mb-5 font-medium">Latest blogs</h1> -->
-                <ul>
-                    <li>
-                        <div class="w-full h-36 mb-2">
-                            <img src="../../assets/img/studio.jpg" class="w-full object-cover h-full" alt="">
-                        </div>
-                        <NuxtLink to="blog/view" class="hover:underline text-lg -mb-1">Music Festivals Unveiled: Insider Tips for Navigating the Ultimate Music Experience</NuxtLink>
-                        <hr class="my-4">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline">The Global Sound: Exploring Music from Around the World</NuxtLink>
-                        <hr class="my-4">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline">Music and Mental Health: Healing Harmonies and Therapeutic Rhythms</NuxtLink>
-                        <hr class="my-4">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg -mb-1 hover:underline">Music Theory</NuxtLink>
-                        <div class="w-full h-36 mt-5">
-                            <img src="../../assets/img/studio-2.jpg" class="w-full object-cover h-full" alt="">
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- MAin Center -->
-            <div class="w-2/4">
-                <div class=" md:h-[65vh] 2xl:h-[40vh]">
-                    <img src="../../assets/img/artist-1.jpg" class="w-full object-cover h-full" alt="">
+        <div class="mt-10 flex flex-col md:flex-row justify-center gap-8 md:gap-5 items-start">
+            <div role="status" class="w-full md:w-1/4 p-4 rounded animate-pulse md:p-6 dark:border-gray-700" v-if="blogs.length <= 0">
+                <div class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                    </svg>
                 </div>
-                <div class="mt-5">
-                    <div class="">
-                        <NuxtLink to="blog/view" class="text-5xl hover:underline leading-12">Why average musicians deserve average pay!</NuxtLink>
-                    </div>
-                    <div class="mt-5">
-                        <p class="text-md leading-8 font-light  mb-8">Exploring the Link Between Skill Level and Compensation: Why Fair Compensation Reflects the Value of Average Musicians in the Music Industry. Exploring the Link Between Skill Level and Compensation: Why Fair Compensation Reflects the Value of Average Musicians in the Music Industry</p>
+                <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div class="flex items-center mt-4">
+                <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                    </svg>
+                    <div>
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+                        <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
                     </div>
                 </div>
+                <span class="sr-only">Loading...</span>
             </div>
-
-            <!-- RHS -->
-            <div class="w-1/4 flex-1">
-                <!-- <h1 class="text-2xl mb-5 font-medium">Latest blogs</h1> -->
-                <ul>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline block mb-2">Music Theory</NuxtLink>
-                        <small class="text-slate-500 font-light">Unlocking Musical Mastery: Essential Concepts and Techniques for Understanding and Creating Beautiful Melodies.</small>
-                        <hr class="my-8">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline block">Master your basics</NuxtLink>
-                        <small class="text-slate-500 font-light">Unlock Your Musical Potential: Delve Deep into Fundamental Skills to Master Your Musical Journey.</small>
-                        <hr class="my-8">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline block mb-2">Top 10 Keyboards</NuxtLink>
-                        <small class="text-slate-500 font-light">Discover the Best: Dive into Reviews and Rankings to Find Your Ideal Keyboard Among the Top 10 Choices..</small>
-                        <hr class="my-8">
-                    </li>
-                    <li>
-                        <NuxtLink to="blog/view" class="text-lg hover:underline block">Music Theory</NuxtLink>
-                        <small class="text-slate-500 font-light">All you need to be a musician</small>
-                    </li>
-                    
-                </ul>
+            <div role="status" class="w-full md:w-1/4 p-4 rounded animate-pulse md:p-6 dark:border-gray-700" v-if="blogs.length <= 0">
+                <div class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                    </svg>
+                </div>
+                <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div class="flex items-center mt-4">
+                <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                    </svg>
+                    <div>
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+                        <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                </div>
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div role="status" class="w-full md:w-1/4 p-4 rounded animate-pulse md:p-6 dark:border-gray-700" v-if="blogs.length <= 0">
+                <div class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                    </svg>
+                </div>
+                <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div class="flex items-center mt-4">
+                <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                    </svg>
+                    <div>
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+                        <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                </div>
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div role="status" class="w-full md:w-1/4 p-4 rounded animate-pulse md:p-6 dark:border-gray-700" v-if="blogs.length <= 0">
+                <div class="flex items-center justify-center h-48 mb-4 bg-gray-300 rounded dark:bg-gray-700">
+                    <svg class="w-10 h-10 text-gray-200 dark:text-gray-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 20">
+                        <path d="M14.066 0H7v5a2 2 0 0 1-2 2H0v11a1.97 1.97 0 0 0 1.934 2h12.132A1.97 1.97 0 0 0 16 18V2a1.97 1.97 0 0 0-1.934-2ZM10.5 6a1.5 1.5 0 1 1 0 2.999A1.5 1.5 0 0 1 10.5 6Zm2.221 10.515a1 1 0 0 1-.858.485h-8a1 1 0 0 1-.9-1.43L5.6 10.039a.978.978 0 0 1 .936-.57 1 1 0 0 1 .9.632l1.181 2.981.541-1a.945.945 0 0 1 .883-.522 1 1 0 0 1 .879.529l1.832 3.438a1 1 0 0 1-.031.988Z"/>
+                        <path d="M5 5V.13a2.96 2.96 0 0 0-1.293.749L.879 3.707A2.98 2.98 0 0 0 .13 5H5Z"/>
+                    </svg>
+                </div>
+                <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-48 mb-4"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700 mb-2.5"></div>
+                <div class="h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                <div class="flex items-center mt-4">
+                <svg class="w-10 h-10 me-3 text-gray-200 dark:text-gray-700" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/>
+                    </svg>
+                    <div>
+                        <div class="h-2.5 bg-gray-200 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
+                        <div class="w-48 h-2 bg-gray-200 rounded-full dark:bg-gray-700"></div>
+                    </div>
+                </div>
+                <span class="sr-only">Loading...</span>
             </div>
         </div>
 
-        <hr class="my-12">
-
-        <!-- rest of articles -->
-        <div class="grid grid-cols-4 gap-10">
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/artist-4.jpg" class="w-full object-cover h-full" alt="">
+        <!-- articles -->
+        <div class="grid grid-cols-4 gap-10" v-if="blogs.length > 0">
+            <div class="border border-slate-200" v-for="post in blogs">
+                <div class="w-full h-64 mb-2 bg-slate-200">
+                    <div v-if="!post.image" class="flex w-full h-full justify-center items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="bi fill-slate-400 bi-card-image w-24 h-24" viewBox="0 0 16 16">
+                            <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/>
+                            <path d="M1.5 2A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2zm13 1a.5.5 0 0 1 .5.5v6l-3.775-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12v.54L1 12.5v-9a.5.5 0 0 1 .5-.5z"/>
+                        </svg>
+                    </div>
+                    
+                    <img v-if="post.image" :src="`data:image/png;base64,${post.image}`" alt="blog image" class="w-full object-cover h-full" >
                 </div>
                 <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">Exploring the Evolution of Jazz: From its Roots to Modern Innovations</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/artist-3.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">The Power of Lyrics: How Songwriting Shapes Emotions and Perspectives</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/artist-2.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">Breaking Down Barriers: Women Making Waves in the Music Industry</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/artist-1.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">Behind the Beat: Unraveling the Mysteries of Music Production</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/studio.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">From Classical to Contemporary: Understanding Music Genres and Their Influence</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/studio-3.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">The Impact of Technology on Music: Navigating the Digital Revolution</NuxtLink>
-                </div>
-            </div>
-            <div class="border border-slate-200">
-                <div class="w-full h-64 mb-2">
-                    <img src="../../assets/img/studio-2.jpg" class="w-full object-cover h-full" alt="">
-                </div>
-                <div class="p-3 pb-5">
-                    <NuxtLink to="blog/view" class="text-xl hover:underline -mb-1">Breaking Down Barriers: Women Making Waves in the Music Industry</NuxtLink>
+                    <NuxtLink :to="`blog/${post.blogId}`" class="text-xl capitalize hover:underline -mb-1">{{ post.title }}</NuxtLink>
                 </div>
             </div>
         </div>
     </div>
 </template>
+
+<script>
+import axios from 'axios';
+
+export default{
+    data() {
+        return{
+            blogs: []
+        }
+    },
+    mounted(){
+        this.getBlogs()
+    },
+    methods: {
+        async getBlogs(){
+            try {
+                const response = await axios.get("https://localhost:7179/api/Blog/get-blog-posts")
+                this.blogs = response.data
+            } catch (error) {
+                console.log("Error getting blogs post: ", error.message)
+            }
+        }
+    }
+}
+</script>

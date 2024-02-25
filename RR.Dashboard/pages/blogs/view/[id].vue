@@ -16,6 +16,10 @@
         <p class="text-xl capitalize">{{post.subTitle}}</p>
 
         <hr class="my-10">
+
+        <div class="w-full h-[90vh] mb-12">
+            <img class="w-full h-full object-cover bg-slate-400" :src="`data:image/png;base64,${post.image}`" alt="blog image"/>
+        </div>
         
         <div class="whitespace-pre-wrap">{{post.body}}</div>
     </div>

@@ -116,5 +116,93 @@ namespace RR.API.Controllers
 
             return Ok(post);
         }
+
+        // UPDATE BLOG POST
+        [HttpPut("update-blog-post/{id}")]
+        public IActionResult UpdateBlogPost(int id, [FromForm] CreateBlogPostDto model, IFormFile? image)
+        {
+            if (id == 0 || id == null)
+            {
+                return BadRequest("Invalid ID");
+            }
+
+            var post = _db.Blogs.Find(id);
+
+            if (post == null)
+            {
+                return NotFound("Post does not exist");
+            }
+
+            if (!string.IsNullOrEmpty(model.Title))
+            {
+                post.Title = model.Title;
+            }
+
+            if (!string.IsNullOrEmpty(model.SubTitle))
+            {
+                post.SubTitle = model.SubTitle;
+            }
+
+            if (!string.IsNullOrEmpty(model.Body))
+            {
+                post.Body = model.Body;
+            }
+
+            if (image != null)
+            {
+
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    image.CopyTo(stream);
+
+                    post.Image = stream.ToArray();
+                }
+            }
+
+            _db.Blogs.Update(post);
+            _db.SaveChanges();
+
+            if( model.TagIds != null && model.TagIds.Length > 0)
+            {
+                post.BlogTags.Clear();
+
+                foreach (int tagId in model.TagIds)
+                {
+                    var blogTag = new BlogTag
+                    {
+                        BlogId = post.BlogId,
+                        TagId = tagId
+                    };
+
+                    _db.BlogTags.Add(blogTag);
+                }
+
+                _db.SaveChanges();
+            }
+
+            return Ok(post);
+        }
+
+        // DELETE BLOG POST
+        [HttpDelete("delete-blog-post/{id}")]
+        public IActionResult DeletePost(int id)
+        {
+            if (id == 0 || id == null)
+            {
+                return BadRequest("Invalid ID");
+            }
+
+            var post = _db.Blogs.Find(id);
+
+            if(post == null)
+            {
+                return NotFound("Post does not exist");
+            }
+
+            _db.Blogs.Remove(post);
+            _db.SaveChanges();
+
+            return Ok(post);
+        }
     }
 }
