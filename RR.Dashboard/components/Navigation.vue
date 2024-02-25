@@ -19,19 +19,29 @@
                     Bookings
                 </NuxtLink>
             </li>
-            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
-                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/blogs'), 'bg-slate-200': $route.path.startsWith('/blogs') }">
-                <NuxtLink to="/blogs">
-                    <span v-if="$route.path.startsWith('/blogs')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
-                    Blogs
-                </NuxtLink>
-            </li>
-            <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
-                :class="{ 'text-black bg-blue-600': $route.path.startsWith('/tags'), 'bg-slate-200': $route.path.startsWith('/tags') }">
-                <NuxtLink to="/tags">
-                    <span v-if="$route.path.startsWith('/tags')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
-                    Tags
-                </NuxtLink>
+            <li>
+                <button type="button" class="flex items-center w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100" @click="openDropdown">
+                    <span class="flex-1 pl-6 text-left rtl:text-right whitespace-nowrap">Blogs</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+                    </svg>
+                </button>
+                <ul class="py-2 pl-6 space-y-2" v-if="showDropdown">
+                    <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                        :class="{ 'text-black bg-blue-600': $route.path.startsWith('/blogs'), 'bg-slate-200': $route.path.startsWith('/blogs') }">
+                        <NuxtLink to="/blogs">
+                            <span v-if="$route.path.startsWith('/blogs')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                            Blogs
+                        </NuxtLink>
+                    </li>
+                    <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
+                        :class="{ 'text-black bg-blue-600': $route.path.startsWith('/tags'), 'bg-slate-200': $route.path.startsWith('/tags') }">
+                        <NuxtLink to="/tags">
+                            <span v-if="$route.path.startsWith('/tags')" class="absolute rounded-l-lg inset-y-0 left-0 w-2 bg-blue-600"></span>
+                            Tags
+                        </NuxtLink>
+                    </li>
+                </ul>
             </li>
             <li class="hover:bg-gray-100 p-2 px-8 rounded-lg relative" 
                 :class="{ 'text-black bg-blue-600': $route.path.startsWith('/slots'), 'bg-slate-200': $route.path.startsWith('/slots') }">
@@ -64,3 +74,19 @@
         </ul>
     </div>
 </template>
+
+<script>
+
+export default{
+    data(){
+        return {
+            showDropdown: false
+        }
+    },
+    methods: {
+        openDropdown() {
+            this.showDropdown = !this.showDropdown;
+        }
+    }
+}
+</script>
