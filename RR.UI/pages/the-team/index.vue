@@ -72,7 +72,7 @@
             </div>
         </div>
         
-        <div class="mt-10 flex flex-col md:flex-row justify-start gap-8 md:gap-5 items-start" v-if="team.length > 0">
+        <div class="mt-10 flex flex-col md:flex-row justify-center gap-8 md:gap-5 items-start" v-if="team.length > 0">
             <div class="w-full md:w-1/4" v-for="member in team">
                 <img :src="`data:image/png;base64,${member.image}`" alt="team member image" class="w-full object-cover h-96">
                 <h4 class="md:mb-1 mt-2 font-medium text-xl">{{member.name}} {{member.surname}}</h4>
